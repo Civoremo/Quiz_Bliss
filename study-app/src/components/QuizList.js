@@ -12,7 +12,6 @@ class QuizList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // allQuiz: [],
             allTopics: [],
             topicSelected: '',
         }
@@ -20,11 +19,14 @@ class QuizList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchQuizzes();
-        // this.setState({
-        //     allQuiz: this.props.quizzes
-        // });
+        if(this.props.addingQuiz){
+            setTimeout(this.props.fetchQuizzes(), 100);
+        }
+        else {
+            this.props.fetchQuizzes();
+        }
     }
+
 
     clickedTopic = text => {
         if(text !== 'All') {
@@ -63,9 +65,9 @@ class QuizList extends React.Component {
                 <div className='topics-container'>
                     <h3 className='list-title'>Topics</h3>
                     <div className='topics-content-text'>
-                        {filteredTopics.map(topic => {
+                        {filteredTopics.map((topic, index) => {
                             return (
-                                <span onClick={() => this.clickedTopic(topic)}><Topics topic={topic}/></span>
+                                <span key={index} onClick={() => this.clickedTopic(topic)}><Topics topic={topic}/></span>
                             );
                         })}
                     </div>
@@ -92,6 +94,7 @@ const mapStateToProps = state => {
     return {
         quizzes: state.quizzes,
         fetching: state.fetching,
+        addingQuiz: state.addingQuiz,
     };
 }
 

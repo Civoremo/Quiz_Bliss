@@ -4,6 +4,10 @@ export const FETCHING_START = 'FETCHING_START';
 export const FETCHING_SUCCESS = 'FETCHING_SUCCESS';
 export const FETCHING_FAILURE = 'FETCHING_FAILURE';
 
+export const ADD_QUIZ_START = 'ADD_QUIZ_START';
+export const ADD_QUIZ_SUCCESS = 'ADD_QUIZ_SUCCESS';
+export const ADD_QUIZ_FAILURE = 'ADD_QUIZ-FAILURE';
+
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 export const fetchQuizzes = () => dispatch => {
@@ -17,5 +21,26 @@ export const fetchQuizzes = () => dispatch => {
         .catch(err => {
             // console.log(err);
             dispatch({ type: FETCHING_FAILURE, payload: err });
+        });
+};
+
+export const addNewQuiz = (quizTitle, quizTopic, token) => dispatch => {
+    dispatch({ type: ADD_QUIZ_START });
+    axios({
+            method: 'post',
+            url: `${baseUrl}api/quizzes`,
+            data: {
+                title: quizTitle,
+                topic: quizTopic
+            },
+            headers: {
+                Authorization: token
+            }
+        })
+        .then(res => {
+            dispatch({ type: ADD_QUIZ_SUCCESS });
+        })
+        .catch(err => {
+            dispatch({ type: ADD_QUIZ_FAILURE, payload: err });
         });
 };

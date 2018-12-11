@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './styles/App.css';
 import './styles/reset.css';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Route } from 'react-router-dom';
 import authenticateHOC from './components/Login/Authenticate';
 
 import QuizList from './components/QuizList';
+import CreateNewQuiz from './components/CreateNewQuiz';
 
 class App extends Component {
   constructor() {
@@ -31,6 +32,18 @@ class App extends Component {
     });
   }
 
+  logoutProfile = () => {
+    localStorage.removeItem('userToken');
+    window.location.reload();
+  }
+
+  closeAllDropdowns = () => {
+    this.setState({
+      menu: false,
+      profile: false,
+    });
+  }
+
 
   render() {
     return (
@@ -42,12 +55,13 @@ class App extends Component {
             <div className='hamburger-container'>
               <span className='nav-items' onClick={() => this.toggleMenu()}>Menu</span>
               <div className={this.state.menu ? 'hamburger-dropdown-container' : 'menuActive'}>
-                <Link to='/create new quiz' className='menu-links'>Create New Quiz</Link>
-                <Link to='/' className='menu-links'>Quiz Collection</Link>
+                <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Home</Link>
+                <Link to='/create new quiz' className='menu-links' onClick={() => this.closeAllDropdowns()}>Create New Quiz</Link>
+                <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quiz Collection</Link>
               </div>
             </div>
 
-            <NavLink exact to='/'><div className='nav-logo'>STUDY APP</div></NavLink>
+            <NavLink exact to='/' onClick={() => this.closeAllDropdowns()}><div className='nav-logo'>STUDY APP</div></NavLink>
             
             <div className='profile-container'>
               <div className='nav-profile-container'>
@@ -55,8 +69,8 @@ class App extends Component {
                 <span className={this.profile ? `nav-items profileActive` : 'nav-items'} onClick={() => this.toggleProfile()}>user_name</span>
               </div>
               <div className={this.state.profile ? 'profile-dropdown-container' : 'profileActive'}>
-                <Link to='/profile' className='menu-links'>Profile</Link>
-                  <Link to='/' className='menu-links'>Logout</Link>
+                <Link to='/profile' className='menu-links' onClick={() => this.closeAllDropdowns()}>Profile</Link>
+                  <Link to='/' className='menu-links' onClick={() => this.logoutProfile()}>Logout</Link>
               </div>
             </div>
           </nav>
@@ -65,7 +79,9 @@ class App extends Component {
         
 
         <div className='all-quiz-container'>
-          <QuizList />
+        <Route exact path='/' render={props => <QuizList {...props} />} />
+          {/* <QuizList /> */}
+        <Route path='/create new quiz' render={props => <CreateNewQuiz {...props} />} />
         </div>
       </div>
     );
