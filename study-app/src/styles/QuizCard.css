@@ -16,6 +16,10 @@
     margin-bottom: 30px;
 }
 
+a {
+    color: #222222;
+}
+
 .quiz-card {
     margin: 0 auto;
     margin-bottom: 30px;

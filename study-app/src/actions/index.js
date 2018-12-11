@@ -8,6 +8,11 @@ export const ADD_QUIZ_START = 'ADD_QUIZ_START';
 export const ADD_QUIZ_SUCCESS = 'ADD_QUIZ_SUCCESS';
 export const ADD_QUIZ_FAILURE = 'ADD_QUIZ-FAILURE';
 
+export const DELETE_QUIZ_START = 'DELETE_QUIZ_START';
+export const DELETE_QUIZ_SUCCESS ='DELETE_QUIZ_SUCCESS';
+export const DELETE_QUIZ_FAILURE = 'DELETE_QUIZ_FAILURE';
+
+
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 export const fetchQuizzes = () => dispatch => {
@@ -21,6 +26,25 @@ export const fetchQuizzes = () => dispatch => {
         .catch(err => {
             // console.log(err);
             dispatch({ type: FETCHING_FAILURE, payload: err });
+        });
+};
+
+export const deleteQuiz = (quizId, token) => dispatch => {
+    dispatch({ type: DELETE_QUIZ_START });
+    axios({
+            method: 'delete',
+            url: `${baseUrl}api/quizzes/${quizId}`,
+
+            headers: {
+                Authorization: token
+            }
+        })
+        .then(res => {
+            console.log(res);
+            dispatch({ type: DELETE_QUIZ_SUCCESS });
+        })
+        .catch(err => {
+            dispatch({ type: DELETE_QUIZ_FAILURE, payload: err});
         });
 };
 

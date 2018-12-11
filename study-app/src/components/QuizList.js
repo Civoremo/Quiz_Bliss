@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchQuizzes } from '../actions';
 import '../styles/QuizCard.css';
@@ -19,7 +20,7 @@ class QuizList extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.addingQuiz){
+        if(this.props.addingQuiz || this.props.deleteQuiz){
             setTimeout(this.props.fetchQuizzes(), 100);
         }
         else {
@@ -78,7 +79,7 @@ class QuizList extends React.Component {
                         {filteredQuizzes.map(quiz => {
                                 return (
                                     <div key={quiz.id} className='quiz-card'>
-                                        <QuizCard quiz={quiz}/>
+                                        <Link to={`/view/${quiz.id}`}><QuizCard quiz={quiz}/></Link>
                                     </div>
                                 );
                         })}
@@ -95,6 +96,7 @@ const mapStateToProps = state => {
         quizzes: state.quizzes,
         fetching: state.fetching,
         addingQuiz: state.addingQuiz,
+        deleteQuiz: state.deleteQuiz,
     };
 }
 
