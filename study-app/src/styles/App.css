@@ -7,6 +7,7 @@
   justify-content: center;
   height: 50px;
   margin-bottom: 50px;
+  position: fixed;
 }
 
 .nav-container {
@@ -58,6 +59,7 @@ a {
   /* border: 1px solid red; */
   width: 950px;
   margin: 0 auto;
+  padding-top: 80px;
 }
 
 .hamburger-container {
@@ -66,18 +68,18 @@ a {
 
 .hamburger-dropdown-container {
   background-color: lightgray;
-  border: 2px outset #222222;
+  border: 1px outset #222222;
   width: 200px;
   text-align: center;
   position: absolute;
-  top: 31px;
+  top: 32px;
   display: flex;
   flex-direction: column;
 }
 
 .menu-links {
   margin: 20px 0;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #222222;
   font-weight: bold;
   letter-spacing: 1.2px;
@@ -93,11 +95,11 @@ a {
 
 .profile-dropdown-container {
   background-color: lightgray;
-  border: 2px outset #222222;
+  border: 1px outset #222222;
   width: 200px;
   text-align: center;
   position: absolute;
-  top: 40px;
+  top: 41px;
   display: flex;
   flex-direction: column;
 }

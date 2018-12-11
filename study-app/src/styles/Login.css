@@ -2,6 +2,13 @@
     display: none;
 }
 
+.login-warning {
+    background-color: rgb(252, 242, 151);
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    color: gray;
+}
+
 .createForm-content {
     width: 500px;
     margin: 0 auto;

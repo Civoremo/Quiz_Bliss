@@ -12,6 +12,8 @@ class Login extends React.Component {
             image: '',
             token: '',
             create: false,
+            user: {},
+            loginFailed: false,
         }
     }
 
@@ -27,7 +29,7 @@ class Login extends React.Component {
         });
     }
 
-    checkLogin = () => {
+    checkLogin = e => {
         axios({
             method: 'post',
             url: 'https://lambda-study-app.herokuapp.com/api/auth/login',
@@ -41,13 +43,19 @@ class Login extends React.Component {
             this.setState({
                 token: res.data.token,
                 email: '',
-                password: ''
+                password: '',
+                user: res.data.user.username
             });
             localStorage.setItem('userToken', this.state.token);
+            localStorage.setItem('username', this.state.user);
+            setTimeout(100);
             window.location.reload();
         })
         .catch(err => {
             console.log(err);
+            this.setState({
+                loginFailed: true,
+            });
         });
     }
 
@@ -59,13 +67,14 @@ class Login extends React.Component {
                 username: `${this.state.username}`,
                 email: `${this.state.email}`,
                 password: `${this.state.password}`,
-                // img_url: `${this.state.image}`,
+                img_url: `${this.state.image}`,
             }
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             this.setState({
                 token: res.token,
+                user: res.user.username,
                 email: '',
                 password: ''
             });
@@ -88,6 +97,9 @@ class Login extends React.Component {
                     </div>
                     <div className='create-body-content'>
                         <h2 className='authentication-title'>Login</h2>
+                    </div>
+                    <div className={this.state.loginFailed ? 'create-body-content' : 'hide'}>
+                        <p className='login-warning'>Username and/or password incorrect, please try again</p>
                     </div>
                 </div>
                 

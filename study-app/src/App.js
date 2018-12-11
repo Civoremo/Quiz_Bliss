@@ -35,6 +35,7 @@ class App extends Component {
 
   logoutProfile = () => {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('username');
     window.location.reload();
   }
 
@@ -67,7 +68,7 @@ class App extends Component {
             <div className='profile-container'>
               <div className='nav-profile-container'>
                 <img src="https://bit.ly/2EpCYPN" alt="profile" className='profile-image'/>
-                <span className={this.profile ? `nav-items profileActive` : 'nav-items'} onClick={() => this.toggleProfile()}>user_name</span>
+                <span className={this.profile ? `nav-items profileActive` : 'nav-items'} onClick={() => this.toggleProfile()}>{localStorage.getItem('username')}</span>
               </div>
               <div className={this.state.profile ? 'profile-dropdown-container' : 'profileActive'}>
                 <Link to='/profile' className='menu-links' onClick={() => this.closeAllDropdowns()}>Profile</Link>

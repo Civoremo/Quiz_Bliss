@@ -6,8 +6,10 @@ import '../styles/QuizCard.css';
 
 import QuizCard from './QuizCard';
 import Topics from './Topics';
+import Authors from './Authors';
 
 let topics = ['All'];
+let authorsList = [];
 
 class QuizList extends React.Component {
     constructor(props) {
@@ -41,6 +43,12 @@ class QuizList extends React.Component {
         }
     }
 
+    clickedAuthor = text => {
+        this.setState({
+            topicSelected: ''
+        });
+    }
+
     render() {
 
         if(this.props.fetching) {
@@ -60,9 +68,25 @@ class QuizList extends React.Component {
             return null;
         })
 
+        this.props.quizzes.forEach(quiz => {
+            authorsList.push(quiz.author);
+        })
+
+        let filteredAuthor = authorsList.filter((v, i) => authorsList.indexOf(v) === i)
+
 
         return (
             <div>
+                <div className='topics-container'>
+                    <h3 className='list-title'>Authors</h3>
+                    <div className='topics-content-text'>
+                        {filteredAuthor.map((author, index) => {
+                            return (
+                                <span key={index} onClick={() => this.clickedAuthor(author)}><Authors author={author}/></span>
+                            );
+                        })}
+                    </div>
+                </div>
                 <div className='topics-container'>
                     <h3 className='list-title'>Topics</h3>
                     <div className='topics-content-text'>
