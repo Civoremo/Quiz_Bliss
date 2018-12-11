@@ -1,0 +1,60 @@
+.quizCard-container {
+    border: 2px outset rgb(122, 122, 122);
+    background-color: rgb(199, 222, 243);
+    width: 250px;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.quizzes-container {
+    width: 950px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 3px outset rgb(66, 66, 148);
+    padding-top: 30px;
+    background-color: rgb(139, 184, 226);
+    margin-bottom: 30px;
+}
+
+.quiz-card {
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.list-title {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.quizCard-text {
+    margin-bottom: 10px;
+}
+
+.quizCard-text:last-child {
+    margin-bottom: 0;
+}
+
+.quizCard-info {
+    font-weight: bold;
+}
+
+.topic-text {
+    font-size: 1.3rem;
+    margin: 10px 20px;
+    cursor: pointer;
+}
+
+.topic-text:hover {
+    font-weight: bold;
+}
+
+.topics-content-text {
+    width: 950px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 3px outset rgb(235, 201, 188);
+    padding: 30px 20px;
+    background-color: rgb(237, 237, 238);
+    margin-bottom: 70px;
+}

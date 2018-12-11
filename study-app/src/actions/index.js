@@ -9,13 +9,13 @@ const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 export const fetchQuizzes = () => dispatch => {
     dispatch({ type: FETCHING_START });
     axios
-        .get(baseUrl)
+        .get(`${baseUrl}api/quizzes`)
         .then(res => {
             console.log(res);
             dispatch({ type: FETCHING_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             dispatch({ type: FETCHING_FAILURE, payload: err });
         });
 };

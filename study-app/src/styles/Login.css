@@ -1,0 +1,80 @@
+.hide {
+    display: none;
+}
+
+.createForm-content {
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.loginForm-content {
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.authentication-inputField {
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 5px 5px;
+}
+
+.authentication-btn {
+    width: 50%;
+    padding: 5px 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.authentication-container {
+    width: 500px;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.create-body-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authentication-title {
+    font-size: 1.3rem;
+    margin: 20px 0;
+}
+
+.auth-app-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid lightgray;
+}
+
+.auth-app-title-content {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.below-auth-container {
+    display: flex;
+    justify-content: center;
+}
+
+.toggle-auth-link {
+    color: blue;
+    cursor: pointer;
+}
