@@ -21,13 +21,18 @@ class QuizList extends React.Component {
 
     }
 
+    componentDidUpdate (prevState) {
+        if(this.props.addingQuiz !== prevState.addingQuiz || this.props.deleteQuiz !== prevState.deleteQuiz) {
+            if(!this.props.addingQuiz && !this.props.deleteQuiz) {
+                this.props.fetchQuizzes();
+            }
+        }
+    }
+
+
     componentDidMount() {
-        if(this.props.addingQuiz || this.props.deleteQuiz){
-            setTimeout(this.props.fetchQuizzes(), 100);
-        }
-        else {
-            this.props.fetchQuizzes();
-        }
+        console.log('this function is being called')
+        this.props.fetchQuizzes();
     }
 
 
@@ -54,6 +59,12 @@ class QuizList extends React.Component {
 
         if(this.props.fetching) {
             return <h3>Loading Data ...</h3>
+        }
+        if(this.props.addingQuiz) {
+            return <h3>Adding Data ...</h3>
+        }
+        if(this.props.deleteQuiz) {
+            return <h3>Deleting Data ...</h3>
         }
         
         this.props.quizzes.forEach(quiz => {
