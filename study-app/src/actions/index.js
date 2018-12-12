@@ -42,7 +42,7 @@ export const fetchQuestions = id => dispatch => {
     axios
         .get(`${baseUrl}api/quizzes/${id}/questions`)
         .then(res => {
-            console.log(res);
+            // console.log(res);
             dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: res.data });
         })
         .catch(err => {

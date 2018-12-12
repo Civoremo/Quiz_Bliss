@@ -40,6 +40,7 @@ export default (state = initialState, action) => {
         case FETCH_QUESTIONS_SUCCESS:
             return {
                 ...state,
+                fetchingQuestions: false,
                 error: null,
                 questions: action.payload,
             };
