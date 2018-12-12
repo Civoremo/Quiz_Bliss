@@ -55,11 +55,13 @@ class Login extends React.Component {
             console.log(err);
             this.setState({
                 loginFailed: true,
+                email: '',
+                password: '',
             });
         });
     }
 
-    createAccount = () => {
+    createAccount = e => {
         axios({
             method: 'post',
             url: 'https://lambda-study-app.herokuapp.com/api/auth/register',
@@ -114,7 +116,7 @@ class Login extends React.Component {
 
 
                 <div className={this.state.create ? 'createAccount-container' : 'hide'}>
-                    <form className='createForm-content'>
+                    <form onSubmit={this.createAccount} className='createForm-content'>
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -156,7 +158,7 @@ class Login extends React.Component {
                 </div>
 
                 <div className={this.state.create ? 'hide' : 'login-container'}>
-                    <form className='loginForm-content'>
+                    <form onSubmit={this.checkLogin} className='loginForm-content'>
                         <input 
                             onChange={this.handleChange}
                             type="text"
