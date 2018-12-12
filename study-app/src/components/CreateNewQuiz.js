@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNewQuiz } from '../actions';
+import '../styles/CreateQuizForm.css';
 
 class CreateNewQuiz extends React.Component {
     constructor() {
@@ -26,7 +27,7 @@ class CreateNewQuiz extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='createForm-container'>
                 <form >
                     <input 
                         onChange={this.handleChange}

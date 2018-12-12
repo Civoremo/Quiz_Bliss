@@ -30,7 +30,8 @@ class Login extends React.Component {
         });
     }
 
-    checkLogin = e => {
+    checkLogin = event => {
+        event.preventDefault();
         axios({
             method: 'post',
             url: 'https://lambda-study-app.herokuapp.com/api/auth/login',
@@ -61,7 +62,8 @@ class Login extends React.Component {
         });
     }
 
-    createAccount = e => {
+    createAccount = event => {
+        event.preventDefault();
         axios({
             method: 'post',
             url: 'https://lambda-study-app.herokuapp.com/api/auth/register',
@@ -116,7 +118,7 @@ class Login extends React.Component {
 
 
                 <div className={this.state.create ? 'createAccount-container' : 'hide'}>
-                    <form onSubmit={this.createAccount} className='createForm-content'>
+                    <form className='createForm-content'>
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -153,12 +155,12 @@ class Login extends React.Component {
                             required={false}
                             className='authentication-inputField'
                         />
-                        <button className='authentication-btn' onClick={() => this.createAccount()}>Create Account</button>
+                        <button className='authentication-btn' onClick={this.createAccount}>Create Account</button>
                     </form>
                 </div>
 
                 <div className={this.state.create ? 'hide' : 'login-container'}>
-                    <form onSubmit={this.checkLogin} className='loginForm-content'>
+                    <form className='loginForm-content'>
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -177,7 +179,7 @@ class Login extends React.Component {
                             required={true}
                             className='authentication-inputField'
                         />
-                        <button className='authentication-btn' onClick={() => this.checkLogin()}>Login</button>
+                        <button className='authentication-btn' onClick={this.checkLogin}>Login</button>
                     </form>
                 </div>
 

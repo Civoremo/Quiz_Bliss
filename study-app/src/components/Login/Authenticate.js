@@ -33,9 +33,18 @@ const authenticateHOC = App =>
             });
         }
 
+        logout = event => {
+            event.preventDefault();
+            this.setState({
+                loggedIn: false,
+            });
+            localStorage.removeItem('username');
+            localStorage.removeItem('userToken');
+        }
+
         render() {
             if(this.state.loggedIn) {
-                return <App />
+                return <App logout={this.logout}/>
             } 
             else if(!this.state.loggedIn) {
                 return <Login login={this.login}/>

@@ -33,12 +33,6 @@ class App extends Component {
     });
   }
 
-  logoutProfile = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('username');
-    window.location.reload();
-  }
-
   closeAllDropdowns = () => {
     this.setState({
       menu: false,
@@ -72,7 +66,7 @@ class App extends Component {
               </div>
               <div className={this.state.profile ? 'profile-dropdown-container' : 'profileActive'}>
                 <Link to='/profile' className='menu-links' onClick={() => this.closeAllDropdowns()}>Profile</Link>
-                  <Link to='/' className='menu-links' onClick={() => this.logoutProfile()}>Logout</Link>
+                  <Link to='/' className='menu-links' onClick={this.props.logout}>Logout</Link>
               </div>
             </div>
           </nav>
