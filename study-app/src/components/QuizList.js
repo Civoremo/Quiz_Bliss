@@ -45,9 +45,10 @@ class QuizList extends React.Component {
 
     clickedAuthor = text => {
         this.setState({
-            topicSelected: ''
+            topicSelected: text
         });
     }
+    
 
     render() {
 
@@ -61,18 +62,19 @@ class QuizList extends React.Component {
 
         let filteredTopics = topics.filter((v, i) => topics.indexOf(v) === i)
 
-        let filteredQuizzes = this.props.quizzes.filter(quiz => {
-            if(quiz.topic.toLowerCase().indexOf(this.state.topicSelected.toLowerCase()) !== -1) {
-                return quiz;
-            }
-            return null;
-        })
-
         this.props.quizzes.forEach(quiz => {
             authorsList.push(quiz.author);
         })
 
         let filteredAuthor = authorsList.filter((v, i) => authorsList.indexOf(v) === i)
+
+        let filteredQuizzes = this.props.quizzes.filter(quiz => {
+            if(quiz.topic.toLowerCase().indexOf(this.state.topicSelected.toLowerCase()) !== -1 || 
+                quiz.author.toLowerCase().indexOf(this.state.topicSelected.toLowerCase()) !== -1) {
+                return quiz;
+            }
+            return null;
+        })
 
 
         return (

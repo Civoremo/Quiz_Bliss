@@ -25,13 +25,20 @@ const authenticateHOC = App =>
                 }
             }
         }
+        
+
+        login = () => {
+            this.setState({
+                loggedIn: true,
+            });
+        }
 
         render() {
             if(this.state.loggedIn) {
                 return <App />
             } 
             else if(!this.state.loggedIn) {
-                return <Login />
+                return <Login login={this.login}/>
             }
         }
 

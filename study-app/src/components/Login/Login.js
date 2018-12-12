@@ -16,6 +16,7 @@ class Login extends React.Component {
             loginFailed: false,
         }
     }
+    
 
     handleChange = e => {
         this.setState({
@@ -46,10 +47,9 @@ class Login extends React.Component {
                 password: '',
                 user: res.data.user.username
             });
-            localStorage.setItem('userToken', this.state.token);
-            localStorage.setItem('username', this.state.user);
-            setTimeout(100);
-            window.location.reload();
+            localStorage.setItem('userToken', res.data.token);
+            localStorage.setItem('username', res.data.user.username);
+            this.props.login();
         })
         .catch(err => {
             console.log(err);
@@ -74,12 +74,12 @@ class Login extends React.Component {
             // console.log(res);
             this.setState({
                 token: res.token,
-                user: res.user.username,
+                user: res.data.user.username,
                 email: '',
                 password: ''
             });
-            localStorage.setItem('usertoken', this.state.token);
-            window.location.reload();
+            localStorage.setItem('usertoken', res.data.token);
+            localStorage.setItem('username', res.data.user.username);
         })
         .catch(err => {
             console.log(err);
