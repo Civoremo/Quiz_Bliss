@@ -4,6 +4,8 @@ import { deleteQuiz } from '../actions';
 import axios from 'axios';
 import '../styles/ViewQuizCard.css';
 
+import QuestionsList from './QuestionsList';
+
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 class ViewQuizCard extends React.Component {
@@ -17,6 +19,7 @@ class ViewQuizCard extends React.Component {
 
     componentDidMount() {
         this.getQuiz();
+
     }
 
     getQuiz = () => {
@@ -60,6 +63,7 @@ class ViewQuizCard extends React.Component {
                         <div>Topic: {this.state.quiz.topic}</div>
                         <div>Author: {this.state.author.username}</div>
                     </div>
+                    <div><QuestionsList quizId={this.props.match.params.quizId}/></div>
                 </div>
             </div>
         );
@@ -70,6 +74,7 @@ const mapStateToProps = state => {
     return {
         fetchQuiz: state.fetchQuiz,
         deleteQuiz: state.deleteQuiz,
+        questions: state.questions,
     };
 }
 

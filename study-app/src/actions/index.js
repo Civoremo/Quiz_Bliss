@@ -12,6 +12,14 @@ export const DELETE_QUIZ_START = 'DELETE_QUIZ_START';
 export const DELETE_QUIZ_SUCCESS ='DELETE_QUIZ_SUCCESS';
 export const DELETE_QUIZ_FAILURE = 'DELETE_QUIZ_FAILURE';
 
+export const FETCH_TOPICS_START = "FETCH_TOPICS_START";
+export const FETCH_TOPICS_SUCCESS = 'FETCH_TOPICS_SUCCESS';
+export const FETCH_TOPICS_FAILURE = 'FETCH_TOPICS_FAILURE';
+
+export const FETCH_QUESTIONS_START = 'FETCH_QUESTIONS_START';
+export const FETCH_QUESTIONS_SUCCESS = 'FETCH_QUESTIONS_SUCCESS';
+export const FETCH_QUESTIONS_FAILURE = 'FETCH_QUESTIONS_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
@@ -20,12 +28,40 @@ export const fetchQuizzes = () => dispatch => {
     axios
         .get(`${baseUrl}api/quizzes`)
         .then(res => {
-            console.log(res);
+            // console.log(res);
             dispatch({ type: FETCHING_SUCCESS, payload: res.data });
         })
         .catch(err => {
             // console.log(err);
             dispatch({ type: FETCHING_FAILURE, payload: err });
+        });
+};
+
+export const fetchQuestions = id => dispatch => {
+    dispatch({ type: FETCH_QUESTIONS_START });
+    axios
+        .get(`${baseUrl}api/quizzes/${id}/questions`)
+        .then(res => {
+            console.log(res);
+            dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            // console.log(err);
+            dispatch({ type: FETCH_QUESTIONS_FAILURE, payload: err });
+        });
+};
+
+export const fetchTopics = () => dispatch => {
+    dispatch({ type: FETCH_TOPICS_START });
+    axios
+        .get(`${baseUrl}api/quizzes/topics`)
+        .then(res => {
+            // console.log(res);
+            dispatch({ type: FETCH_TOPICS_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            // console.log(err);
+            dispatch({ type: FETCH_TOPICS_FAILURE, payload: err });
         });
 };
 
@@ -40,7 +76,7 @@ export const deleteQuiz = (quizId, token) => dispatch => {
             }
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             dispatch({ type: DELETE_QUIZ_SUCCESS });
         })
         .catch(err => {
