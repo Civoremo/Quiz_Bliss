@@ -7,6 +7,10 @@
     padding-left: 40px;
 }
 
+.quizCard-container:hover {
+    background-color: rgb(206, 217, 226);
+}
+
 .quizzes-container {
     width: 950px;
     display: flex;
@@ -66,4 +70,32 @@ a {
     padding: 5px 20px;
     background-color: rgb(237, 237, 238);
     margin-bottom: 30px;
+}
+
+.displayToggle {
+    display: none;
+}
+
+.createNewToggle-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 5px 25px;
+    margin-bottom: 25px;
+}
+
+.createForm-btn {
+    width: 150px;
+    padding: 5px 10px;
+    border: 1px outset rgb(180, 180, 180);
+    border-radius: 5px;
+}
+
+.createForm-btn:hover {
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+}
+
+.createNewForm-container {
+    margin: 0 25px;
+    margin-bottom: 10px;
 }

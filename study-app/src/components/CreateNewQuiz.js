@@ -20,6 +20,7 @@ class CreateNewQuiz extends React.Component {
     }
 
     addingNewQuiz = e => {
+        e.preventDefault();
         const token = localStorage.getItem('userToken');
         this.props.addNewQuiz(this.state.title, this.state.topic, token);
         this.props.history.push('/');
@@ -27,8 +28,8 @@ class CreateNewQuiz extends React.Component {
 
     render() {
         return (
-            <div className='createForm-container'>
-                <form >
+            <div>
+                <form onSubmit={this.addingNewQuiz}  className='createForm-container'>
                     <input 
                         onChange={this.handleChange}
                         type="text"
@@ -36,6 +37,7 @@ class CreateNewQuiz extends React.Component {
                         name='title'
                         value={this.state.title}
                         required={true}
+                        className='newQuiz-inputField'
                     />
                     <input 
                         onChange={this.handleChange}
@@ -44,8 +46,9 @@ class CreateNewQuiz extends React.Component {
                         name='topic'
                         value={this.state.topic}
                         required={true}
+                        className='newQuiz-inputField'
                     />
-                    <button onClick={() => this.addingNewQuiz()}>Add Quiz</button>
+                    <button onClick={this.addingNewQuiz} className='addNewQuiz-btn'>Add Quiz</button>
                 </form>
             </div>
         );

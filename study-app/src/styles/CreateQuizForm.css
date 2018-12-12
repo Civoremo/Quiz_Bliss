@@ -1,0 +1,24 @@
+
+.createForm-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.newQuiz-inputField {
+    width: 250px;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.addNewQuiz-btn {
+    width: 150px;
+    padding: 5px 10px;
+    background-color: rgb(208, 234, 247);
+    border-radius: 5px;
+}
+
+.addNewQuiz-btn:hover {
+    background-color: rgb(165, 196, 211);
+    cursor: pointer;
+}

@@ -51,8 +51,7 @@ class App extends Component {
             <div className='hamburger-container'>
               <span className='nav-items' onClick={() => this.toggleMenu()}>Menu</span>
               <div className={this.state.menu ? 'hamburger-dropdown-container' : 'menuActive'}>
-                <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Home</Link>
-                <Link to='/create new quiz' className='menu-links' onClick={() => this.closeAllDropdowns()}>Create New Quiz</Link>
+                {/* <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Home</Link> */}
                 <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quiz Collection</Link>
               </div>
             </div>
