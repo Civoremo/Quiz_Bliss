@@ -13,7 +13,8 @@ class ViewQuizCard extends React.Component {
         super();
         this.state = {
             quiz: {},
-            author: {}
+            author: {},
+            displayModal: false,
         }
     }
 
@@ -44,6 +45,13 @@ class ViewQuizCard extends React.Component {
         this.props.history.push('/');
     }
 
+    deleteModal = e => {
+        e.preventDefault();
+        this.setState({
+            displayModal: !this.state.displayModal,
+        });
+    }
+
     render () {
         if(this.state.quiz.length === 0) {
             return <></>
@@ -52,18 +60,30 @@ class ViewQuizCard extends React.Component {
         return (
             <div className='viewQuiz-container'>
                 <div>
-                    <span onClick={this.deleteQuiz}>delete</span>
-                </div>
-                <div>
                     <div>
                         {/* {place for profile image} */}
                     </div>
-                    <div>
-                        <div>Title: {this.state.quiz.title}</div>
-                        <div>Topic: {this.state.quiz.topic}</div>
-                        <div>Author: {this.state.author.username}</div>
+                    <div className='quiz-info-container'>
+                        <div className='quiz-delete-btn'>
+                            <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete</span>
+                            <div className={this.state.displayModal ? 'deleteModal' : 'hideModal'}>
+                                <div className='deleteModal-content'>
+                                    <h3 className='deleteModal-text'>Do you really wish to delete this Quiz?</h3>
+                                    <div className='deleteModal-btn-container'>
+                                        <button className='deleteModal-btn red' onClick={this.deleteQuiz}>Delete</button>
+                                        <button className='deleteModal-btn blue' onClick={this.deleteModal}>Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className='quizView-info'>Title: <span className='quizView-text'>{this.state.quiz.title}</span></div>
+                            <div className='quizView-info'>Topic: <span className='quizView-text'>{this.state.quiz.topic}</span></div>
+                            <div className='quizView-info'>Author: <span className='quizView-text'>{this.state.author.username}</span></div>
+                            <div className='quizView-info'>Votes: <span className='quizView-text'>{this.state.quiz.votes}</span></div>
+                        </div>
                     </div>
-                    <div><QuestionsList quizId={this.props.match.params.quizId}/></div>
+                    <div><QuestionsList quizId={this.props.match.params.quizId} reload={this.props.history}/></div>
                 </div>
             </div>
         );
@@ -74,7 +94,6 @@ const mapStateToProps = state => {
     return {
         fetchQuiz: state.fetchQuiz,
         deleteQuiz: state.deleteQuiz,
-        questions: state.questions,
     };
 }
 

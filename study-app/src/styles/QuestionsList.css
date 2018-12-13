@@ -1,3 +1,130 @@
 .finished {
     display: none;
 }
+
+.missingAnswer {
+    padding: 5px 10px;
+    background-color: rgb(245, 238, 145);
+    margin: 10px 0;
+    width: 120px;
+}
+
+.totalQuestions-text {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.question-container {
+    width: 800px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+    border: 1px outset rgb(121, 121, 121);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px inset lightgray; */
+}
+
+.question-title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    width: 500px;
+    text-align: center;
+}
+
+.allAnswer-container {
+    min-height: 200px;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.answer-content {
+    width: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.radio-btn {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.radio-btn:hover {
+    cursor: pointer;
+}
+
+.radioBtn-container {
+    /* border: 1px solid red; */
+    width: 40px;
+}
+
+.answerText-container {
+    width: 500px;
+    /* border: 1px solid red; */
+}
+
+.answer-text {
+    font-size: 1.3rem;
+}
+
+.saveAnswer-btn {
+    width: 200px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background-color: rgb(189, 224, 182);
+    border: 2px outset #ffffff;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
+.saveAnswer-btn:hover {
+    background-color: rgb(116, 241, 100);
+    cursor: pointer;
+}
+
+.quiz-finished-container{
+    width: 800px;
+    height: 400px;
+    background-color: rgb(241, 255, 162);
+    border: 2px inset lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 400px;
+}
+
+.quizFinalScore-text {
+    border: 2px outset rgb(121, 121, 121);
+    padding: 15px 35px;
+    border-radius: 10px;
+    background-color: rgb(69, 111, 204);
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    margin: 20px 0;
+}
+
+.quizFinalTryAgain-btn {
+    border: 2px outset rgb(121, 121, 121);
+    padding: 15px 35px;
+    border-radius: 10px;
+    background-color: rgb(69, 111, 204);
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    margin: 20px 0;
+}
+
+.quizFinalTryAgain-btn:hover {
+    cursor: pointer;
+}
