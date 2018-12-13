@@ -16,9 +16,42 @@
     padding: 5px 10px;
     background-color: rgb(208, 234, 247);
     border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .addNewQuiz-btn:hover {
     background-color: rgb(165, 196, 211);
     cursor: pointer;
+}
+
+.editQuizForm-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editingQuiz-container {
+    border: 1px outset rgb(209, 209, 209);
+    background-color: #fff;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 150px;
+    width: 800px;
+    height: 190px;
+}
+
+.editForm-title-text {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+    letter-spacing: 2px;
+}
+
+.editQuizForm-btn-container {
+    display: flex;
+    flex-direction: column;
 }

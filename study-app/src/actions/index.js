@@ -20,8 +20,36 @@ export const FETCH_QUESTIONS_START = 'FETCH_QUESTIONS_START';
 export const FETCH_QUESTIONS_SUCCESS = 'FETCH_QUESTIONS_SUCCESS';
 export const FETCH_QUESTIONS_FAILURE = 'FETCH_QUESTIONS_FAILURE';
 
+export const EDIT_QUIZINFO_START = 'EDIT_QUIZINFO_START';
+export const EDIT_QUIZINFO_SUCCESS = 'EDIT_QUIZINFO_SUCCESS';
+export const EDIT_QUIZINFO_FAILURE = ' EDIT_QUIZINFO_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
+
+export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
+    dispatch({ type: EDIT_QUIZINFO_START });
+    axios({
+            method: 'patch',
+            url: `${baseUrl}api/quizzes/${id}/edit`,
+            data: {
+                title: newTitle,
+                topic: newTopic,
+            },
+
+            headers: {
+                Authorization: localStorage.getItem('userToken'),
+            }
+        })
+        .then(res => {
+            // console.log(res);
+            dispatch({ type: EDIT_QUIZINFO_SUCCESS });
+        })
+        .catch(err => {
+            // console.log(err);
+            dispatch({ type: EDIT_QUIZINFO_FAILURE, payload: err });
+        });
+};
 
 export const fetchQuizzes = () => dispatch => {
     dispatch({ type: FETCHING_START });

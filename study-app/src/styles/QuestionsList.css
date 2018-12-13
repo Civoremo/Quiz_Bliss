@@ -91,7 +91,7 @@
 .quiz-finished-container{
     width: 800px;
     height: 400px;
-    background-color: rgb(241, 255, 162);
+    background-color: rgb(255, 255, 255);
     border: 2px inset lightgray;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@
 }
 
 .quizFinalScore-text {
-    border: 2px outset rgb(121, 121, 121);
+    /* border: 2px outset rgb(121, 121, 121); */
     padding: 15px 35px;
     border-radius: 10px;
     background-color: rgb(69, 111, 204);
@@ -117,7 +117,7 @@
     border: 2px outset rgb(121, 121, 121);
     padding: 15px 35px;
     border-radius: 10px;
-    background-color: rgb(69, 111, 204);
+    background-color: rgb(69, 204, 152);
     font-weight: bold;
     letter-spacing: 2px;
     color: #ffffff;

@@ -14,6 +14,9 @@ import {
     FETCH_QUESTIONS_START,
     FETCH_QUESTIONS_SUCCESS,
     FETCH_QUESTIONS_FAILURE,
+    EDIT_QUIZINFO_START,
+    EDIT_QUIZINFO_SUCCESS,
+    EDIT_QUIZINFO_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -26,11 +29,31 @@ const initialState = {
     addingQuiz: false,
     fetchQuiz: false,
     deleteQuiz: false,
+    editingQuiz: false,
     error: null,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Editing Quiz Cases
+        case EDIT_QUIZINFO_START:
+            return {
+                ...state,
+                editingQuiz: true,
+            };
+        case EDIT_QUIZINFO_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                editingQuiz: false,
+            };
+        case EDIT_QUIZINFO_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                editingQuiz: false,
+            };
+
         // Fetching Questions Cases
         case FETCH_QUESTIONS_START:
             return {

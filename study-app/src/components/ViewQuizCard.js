@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../styles/ViewQuizCard.css';
 
 import QuestionsList from './QuestionsList';
+import EditQuiz from './EditQuiz';
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
@@ -14,7 +15,9 @@ class ViewQuizCard extends React.Component {
         this.state = {
             quiz: {},
             author: {},
+            authorImg: '',
             displayModal: false,
+            displayEditForm: false,
         }
     }
 
@@ -30,7 +33,8 @@ class ViewQuizCard extends React.Component {
                 console.log(res);
                 this.setState({
                     quiz: res.data,
-                    author: res.data.author
+                    author: res.data.author,
+                    authorImg: res.data.author.img_url,
                 });
             })
             .catch(err => {
@@ -52,6 +56,13 @@ class ViewQuizCard extends React.Component {
         });
     }
 
+    editQuizForm = e => {
+        e.preventDefault();
+        this.setState({
+            displayEditForm: !this.state.displayEditForm,
+        });
+    }
+
     render () {
         if(this.state.quiz.length === 0) {
             return <></>
@@ -60,12 +71,11 @@ class ViewQuizCard extends React.Component {
         return (
             <div className='viewQuiz-container'>
                 <div>
-                    <div>
-                        {/* {place for profile image} */}
-                    </div>
                     <div className='quiz-info-container'>
                         <div className='quiz-delete-btn'>
-                            <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete</span>
+                            <span className='entireQuiz-editQuizBtn' onClick={this.editQuizForm}>{this.state.displayEditForm ? 'cancel edit' :'edit quiz'}</span>
+                            <span className='entireQuiz-editQuestionsBtn'>edit questions</span>
+                            <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete quiz</span>
                             <div className={this.state.displayModal ? 'deleteModal' : 'hideModal'}>
                                 <div className='deleteModal-content'>
                                     <h3 className='deleteModal-text'>Do you really wish to delete this Quiz?</h3>
@@ -76,14 +86,24 @@ class ViewQuizCard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div className='quizView-info'>Title: <span className='quizView-text'>{this.state.quiz.title}</span></div>
-                            <div className='quizView-info'>Topic: <span className='quizView-text'>{this.state.quiz.topic}</span></div>
-                            <div className='quizView-info'>Author: <span className='quizView-text'>{this.state.author.username}</span></div>
-                            <div className='quizView-info'>Votes: <span className='quizView-text'>{this.state.quiz.votes}</span></div>
+                        <div className='quiz-author-info-container'>
+                            <div>
+                                <img src={this.state.authorImg === null ? "https://bit.ly/2C9tLJe" : `${this.state.authorImg}`} alt="profile" className='quiz-profile-image'/>
+                            </div>
+                            <div>
+                                <div className='quizView-info'>Title: <span className='quizView-text'>{this.state.quiz.title}</span></div>
+                                <div className='quizView-info'>Topic: <span className='quizView-text'>{this.state.quiz.topic}</span></div>
+                                <div className='quizView-info'>Author: <span className='quizView-text'>{this.state.author.username}</span></div>
+                                <div className='quizView-info'>Votes: <span className='quizView-text'>{this.state.quiz.votes}</span></div>
+                            </div>
                         </div>
                     </div>
-                    <div><QuestionsList quizId={this.props.match.params.quizId} reload={this.props.history}/></div>
+                    <div className={this.state.displayEditForm ? 'editQuizForm' : 'showEditQuizForm'}>
+                        <EditQuiz quizId={this.props.match.params.quizId} />
+                    </div>
+                    <div className='questionsListForm'>
+                        <QuestionsList quizId={this.props.match.params.quizId}/>
+                    </div>
                 </div>
             </div>
         );

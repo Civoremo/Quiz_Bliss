@@ -33,18 +33,51 @@
 }
 
 .entireQuiz-deleteBtn {
-    width: 70px;
-    padding: 5px 5px;
+    /* width: 70px; */
+    padding: 5px 15px;
     background-color: rgb(214, 114, 114);
     text-align: center;
     border: 2px outset gray;
     border-radius: 5px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #ffffff;
 }
 
 .entireQuiz-deleteBtn:hover {
     background-color: rgb(231, 78, 78);
+    cursor: pointer;
+}
+
+.entireQuiz-editQuizBtn {
+    /* width: 70px; */
+    padding: 5px 15px;
+    background-color: rgb(79, 192, 226);
+    text-align: center;
+    border: 2px outset gray;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.entireQuiz-editQuizBtn:hover {
+    background-color: rgb(78, 149, 231);
+    cursor: pointer;
+}
+
+.entireQuiz-editQuestionsBtn {
+    padding: 5px 15px;
+    background-color: rgb(226, 187, 79);
+    text-align: center;
+    border: 2px outset gray;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.entireQuiz-editQuestionsBtn:hover {
+    background-color: rgb(231, 160, 78);
     cursor: pointer;
 }
 
@@ -117,8 +150,8 @@
 .quiz-start-container {
     width: 800px;
     height: 400px;
-    background-color: rgb(229, 235, 240);
-    border: 2px inset lightgray;
+    background-color: rgb(229, 255, 226);
+    border: 2px inset rgb(211, 208, 208);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,4 +170,20 @@
 .quizStart-btn:hover {
     background-color: rgb(25, 77, 189);
     cursor: pointer;
+}
+
+.quiz-author-info-container {
+    display: flex;
+}
+
+.quiz-profile-image {
+    width: 110px;
+    height: auto;
+    margin-right: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+
+.showEditQuizForm {
+    display: none;
 }

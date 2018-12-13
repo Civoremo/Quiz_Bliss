@@ -28,7 +28,7 @@ a {
 .nav-profile-container {
   width: 150px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   /* border: 1px solid red; */
 }
@@ -36,12 +36,13 @@ a {
 .profile-image {
   width: 35px;
   height: 35px;
+  margin-right: 10px;
 }
 
 .nav-logo {
   font-size: 1.3rem;
   /* border: 1px solid red; */
-  width: 150px;
+  /* width: 150px; */
   padding: 5px 0;
   text-align: center;
   color: #ffffff;
@@ -49,8 +50,9 @@ a {
 
 .nav-items {
   color: #ffffff;
-  width: 150px;
-  text-align: right;
+  /* width: 150px; */
+  font-size: 1.3rem;
+  text-align: left;
   cursor: pointer;
   /* border: 1px solid red; */
 }
@@ -72,7 +74,7 @@ a {
   width: 200px;
   text-align: center;
   position: absolute;
-  top: 32px;
+  top: 34px;
   display: flex;
   flex-direction: column;
 }
