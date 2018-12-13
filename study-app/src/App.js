@@ -7,6 +7,7 @@ import authenticateHOC from './components/Login/Authenticate';
 import QuizList from './components/QuizList';
 import CreateNewQuiz from './components/CreateNewQuiz';
 import ViewQuizCard from './components/ViewQuizCard';
+import AddQuestionToQuiz from './components/AddQuestionToQuiz';
 
 class App extends Component {
   constructor() {
@@ -77,7 +78,8 @@ class App extends Component {
         <Route exact path='/' render={props => <QuizList {...props} />} />
           {/* <QuizList /> */}
         <Route path='/create new quiz' render={props => <CreateNewQuiz {...props} />} />
-        <Route exact path='/view/:quizId' render={props => <ViewQuizCard {...props} />} />
+        <Route path='/view/:quizId' render={props => <ViewQuizCard {...props} />} />
+        <Route path='/addQuestion/:quizId' render={props => <AddQuestionToQuiz {...props} />} />
         </div>
       </div>
     );

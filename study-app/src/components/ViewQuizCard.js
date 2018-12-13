@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteQuiz } from '../actions';
 import axios from 'axios';
@@ -74,7 +75,7 @@ class ViewQuizCard extends React.Component {
                     <div className='quiz-info-container'>
                         <div className='quiz-delete-btn'>
                             <span className='entireQuiz-editQuizBtn' onClick={this.editQuizForm}>{this.state.displayEditForm ? 'cancel edit' :'edit quiz'}</span>
-                            <span className='entireQuiz-editQuestionsBtn'>edit questions</span>
+                            <Link to={`/addQuestion/${this.props.match.params.quizId}`} className='entireQuiz-editQuestionsBtn'>edit questions</Link>
                             <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete quiz</span>
                             <div className={this.state.displayModal ? 'deleteModal' : 'hideModal'}>
                                 <div className='deleteModal-content'>

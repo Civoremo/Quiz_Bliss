@@ -24,8 +24,41 @@ export const EDIT_QUIZINFO_START = 'EDIT_QUIZINFO_START';
 export const EDIT_QUIZINFO_SUCCESS = 'EDIT_QUIZINFO_SUCCESS';
 export const EDIT_QUIZINFO_FAILURE = ' EDIT_QUIZINFO_FAILURE';
 
+export const ADD_QUESTION_START = 'ADD_QUESTION_START';
+export const ADD_QUESTION_SUCCESS = 'ADD_QUESTION_SUCCESS';
+export const ADD_QUESTION_FAILURE = 'ADD_QUESTION_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
+
+
+export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {
+    dispatch({ type: ADD_QUESTION_START });
+    axios({
+            method: 'post',
+            url: `${baseUrl}api/quizzes/${id}/questions`,
+            data: {
+                question: question,
+                option1: ans1,
+                option2: ans2,
+                option3: ans3,
+                option4: ans4,
+                answer: correctAns,
+            },
+
+            headers: {
+                Authorization: localStorage.getItem('userToken'),
+            }
+        })
+        .then(res => {
+            // console.log(res);
+            dispatch({ type: ADD_QUESTION_SUCCESS });
+        })
+        .catch(err => {
+            // console.log(err);
+            dispatch({ type: ADD_QUESTION_FAILURE, payload: err });
+        });
+};
 
 export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
     dispatch({ type: EDIT_QUIZINFO_START });
