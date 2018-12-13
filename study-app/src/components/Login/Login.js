@@ -50,7 +50,9 @@ class Login extends React.Component {
             });
             localStorage.setItem('userToken', res.data.token);
             localStorage.setItem('username', res.data.user.username);
-            localStorage.setItem('userImg', res.data.user.img_url);
+            if(res.data.user.img_url !== null) {
+                localStorage.setItem('userImg', res.data.user.img_url);
+            }
             this.props.login();
         })
         .catch(err => {

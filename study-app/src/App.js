@@ -60,7 +60,7 @@ class App extends Component {
             
             <div className='profile-container'>
               <div className='nav-profile-container'>
-                <img src={!localStorage.getItem('userImg') || localStorage.getItem('userImg') === null ? "https://bit.ly/2C9tLJe" : `${localStorage.getItem('userImg')}`} alt="profile" className='profile-image'/>
+                <img src={!localStorage.getItem('userImg') ? "https://bit.ly/2C9tLJe" : `${localStorage.getItem('userImg')}`} alt="profile" className='profile-image'/>
                 <span className={this.profile ? `nav-items profileActive` : 'nav-items'} onClick={() => this.toggleProfile()}>{localStorage.getItem('username')}</span>
               </div>
               <div className={this.state.profile ? 'profile-dropdown-container' : 'profileActive'}>
