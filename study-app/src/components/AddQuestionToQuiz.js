@@ -38,7 +38,7 @@ class AddQuestionToQuiz extends React.Component {
                 <div className='questionAnswer-container'>
                     {this.props.allQuestions.map((question, index) => {
                         return (
-                            <div>
+                            <div key={question.id}>
                                 <EditDeleteQuestion question={question} index={index} quizId={this.props.match.params.quizId}/>
                             </div>
                         );

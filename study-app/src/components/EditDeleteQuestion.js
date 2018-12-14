@@ -7,7 +7,30 @@ class EditDeleteQuestion extends React.Component {
         super(props);
         this.state = {
             editEnabled: false,
+            questionEdit: '',
+            answ1Edit: '',
+            answ2Edit: '',
+            answ3Edit: '',
+            answ4Edit: '',
+            correctAnswEdit: '',
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            questionEdit: this.props.question.question,
+            answ1Edit: this.props.question.options[0],
+            answ2Edit: this.props.question.options[1],
+            answ3Edit: this.props.question.options[2],
+            answ4Edit: this.props.question.options[3],
+            editEnabled: false,
+        });
+    }
+
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     removeQuestion = id => {
@@ -15,18 +38,39 @@ class EditDeleteQuestion extends React.Component {
 
     }
 
+    toggleEdit = e => {
+        this.setState({
+            editEnabled: !this.state.editEnabled
+        });
+    }
+
     // still requires setting up args for editing question
     // quizID, questionID, questionText, ans1Text, ans2Text, ans3Text, ans4Text, correctAnsNumber
     changeQuestionInfo = id => {
-        this.props.editQuestion(
-            this.props.quizId,  // quizID
-            id, // questionID
-        )
+        if(this.state.questionEdit !== '' && this.state.answ1Edit !== '' && this.state.answ2Edit !== '' && this.state.correctAnswEdit !== '') {
+            this.props.editQuestion(
+                this.props.quizId,  // quizID
+                id, // questionID
+                this.state.questionEdit,
+                this.state.answ1Edit,
+                this.state.answ2Edit,
+                this.state.answ3Edit,
+                this.state.answ4Edit,
+                this.state.correctAnswEdit,
+            )
+        }
+        else {
+            alert('check edit input fields and try again')
+        }
+        
     }
 
     render() {
+        if(this.state.questionEdit === '') {
+            return <></>
+        }
         return (
-            <div key={this.props.question.id} className='currentQuestionAnswer-container'>
+            <div className='currentQuestionAnswer-container'>
                 <div className='currentQuestion-container'>
                     <div className='questionAnswer-info'>
                         <div className='questionLabel-text'>Question: #{this.props.index+1}</div>
@@ -44,12 +88,13 @@ class EditDeleteQuestion extends React.Component {
                     
                     <div className='questionAnswer-btn-container'>
                         <button className='questionAnswerBtn' onClick={() => this.removeQuestion(this.props.question.id)}>delete Question</button>
-                        <button className='questionAnswerBtn'>edit Question</button>
+                        <button className='questionAnswerBtn' onClick={this.toggleEdit}>{this.state.editEnabled ? 'cancel Edit' : 'edit Question'}</button>
                     </div>
                 </div>
-                <div className={this.state.editEnabled ? '' : 'editCurrentQuestionAnswer-container'}>
-                    <div>Edit Question Form</div>
-                    <form >
+                <div className={this.state.editEnabled ? '' : 'toggleQuestionEdit'}>
+                    
+                    <form  className='addQuestionForm'>
+                        <div className='addNewQuestion-title-text'>Edit Question Form</div>
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -106,7 +151,7 @@ class EditDeleteQuestion extends React.Component {
                             max='4'
                             className="addQuestionInput"
                         />
-                        <button>Save Edit</button>
+                        <button className='addNewQuestion-form-btn' onClick={() => this.changeQuestionInfo(this.props.question.id)}>Save Edit</button>
                     </form>
                 </div>
             </div>

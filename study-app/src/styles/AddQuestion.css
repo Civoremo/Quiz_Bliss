@@ -101,3 +101,7 @@
 .answerSpacing {
     margin-left: 10px;
 }
+
+.toggleQuestionEdit {
+    display: none;
+}
