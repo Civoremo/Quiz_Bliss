@@ -20,6 +20,12 @@ import {
     ADD_QUESTION_START,
     ADD_QUESTION_SUCCESS,
     ADD_QUESTION_FAILURE,
+    DELETE_QUESTION_START,
+    DELETE_QUESTION_SUCCESS,
+    DELETE_QUESTION_FAILURE,
+    EDIT_QUESTION_START,
+    EDIT_QUESTION_SUCCESS,
+    EDIT_QUESTION_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -32,6 +38,8 @@ const initialState = {
     addingQuiz: false,
     fetchQuiz: false,
     deleteQuiz: false,
+    deletingQuestion: false,
+    editingQuestion: false,
     editingQuiz: false,
     addingQuestion: false,
     error: null,
@@ -39,6 +47,44 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Edit Question Cases
+        case EDIT_QUESTION_START:
+            return {
+                ...state,
+                editingQuestion: true,
+            };
+        case EDIT_QUESTION_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                editingQuestion: false,
+            };
+        case EDIT_QUESTION_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                editingQuestion: false,
+            };
+
+        // Deleting Question Cases
+        case DELETE_QUESTION_START:
+            return {
+                ...state,
+                deletingQuestion: true,
+            };
+        case DELETE_QUESTION_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                deletingQuestion: false,
+            };
+        case DELETE_QUESTION_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                deletingQuestion: false,
+            };
+
         // Adding Question Cases
         case ADD_QUESTION_START:
             return {

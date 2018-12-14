@@ -28,15 +28,22 @@ export const ADD_QUESTION_START = 'ADD_QUESTION_START';
 export const ADD_QUESTION_SUCCESS = 'ADD_QUESTION_SUCCESS';
 export const ADD_QUESTION_FAILURE = 'ADD_QUESTION_FAILURE';
 
+export const DELETE_QUESTION_START = 'DELETE_QUESTION_START';
+export const DELETE_QUESTION_SUCCESS = 'DELETE_QUESTION_SUCCESS';
+export const DELETE_QUESTION_FAILURE = 'DELETE_QUESTION_FAILURE';
+
+export const EDIT_QUESTION_START = 'EDIT_QUESTION_START';
+export const EDIT_QUESTION_SUCCESS = 'EDIT_QUESTION_SUCCESS';
+export const EDIT_QUESTION_FAILURE = 'EDIT_QUESTION_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
-
-export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {
-    dispatch({ type: ADD_QUESTION_START });
+export const editQuestion = (quizId, questionId, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {
+    dispatch({ type: EDIT_QUESTION_START });
     axios({
-            method: 'post',
-            url: `${baseUrl}api/quizzes/${id}/questions`,
+            method: 'patch',
+            url: `${baseUrl}api/quizzes/${quizId}/questions/${questionId}`,
             data: {
                 question: question,
                 option1: ans1,
@@ -52,12 +59,73 @@ export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) =>
         })
         .then(res => {
             // console.log(res);
-            dispatch({ type: ADD_QUESTION_SUCCESS });
+            dispatch({ type: EDIT_QUESTION_SUCCESS });
         })
         .catch(err => {
             // console.log(err);
-            dispatch({ type: ADD_QUESTION_FAILURE, payload: err });
+            dispatch({ type: EDIT_QUESTION_FAILURE, payload: err });
         });
+};
+
+export const deleteQuestion = (quizId, questionId) => dispatch => {
+    dispatch({ type: DELETE_QUESTION_START });
+    axios({
+            method: 'delete',
+            url: `${baseUrl}api/quizzes/${quizId}/questions/${questionId}`,
+            data: {
+                quizId: quizId,
+                questionId: questionId,
+            },
+
+            headers: {
+                Authorization: localStorage.getItem('userToken'),
+            }
+        })
+        .then(res => {
+            // console.log(res);
+            dispatch({ type: DELETE_QUESTION_SUCCESS });
+        })
+        .catch(err => {
+            // console.log(err);
+            dispatch({ type: DELETE_QUESTION_FAILURE, payload: err });
+        });
+};
+
+export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {
+    dispatch({ type: ADD_QUESTION_START });
+    // console.log('quizID: ' + id);
+    // console.log('question: ' + question);
+    // console.log('answer1: ' + ans1);
+    // console.log('answer2: ' + ans2);
+    // console.log('answer3: ' + ans3);
+    // console.log('answer4: ' + ans4);
+    console.log('correctAnswer#: ' + correctAns);
+    axios({
+        method: 'post',
+        url: `${baseUrl}api/quizzes/${id}/questions`,
+
+        data: {
+            question: question,
+            option1: ans1,
+            option2: ans2,
+            option3: ans3,
+            option4: ans4,
+            answer: correctAns,
+        },
+
+        headers: {
+            Authorization: localStorage.getItem('userToken'),
+        }
+    })
+    .then(res => {
+        // console.log(res);
+        dispatch({ type: ADD_QUESTION_SUCCESS });
+    })
+    .catch(err => {
+        // console.log(err);
+        dispatch({ type: ADD_QUESTION_FAILURE, payload: err });
+    });
+
 };
 
 export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
