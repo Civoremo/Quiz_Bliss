@@ -99,7 +99,7 @@ export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) =>
     // console.log('answer2: ' + ans2);
     // console.log('answer3: ' + ans3);
     // console.log('answer4: ' + ans4);
-    console.log('correctAnswer#: ' + correctAns);
+    console.log('correctAnswer#: ', typeof parseInt(correctAns));
     axios({
         method: 'post',
         url: `${baseUrl}api/quizzes/${id}/questions`,
@@ -110,7 +110,7 @@ export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) =>
             option2: ans2,
             option3: ans3,
             option4: ans4,
-            answer: correctAns,
+            answer: parseInt(correctAns),
         },
 
         headers: {

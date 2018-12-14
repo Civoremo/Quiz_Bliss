@@ -52,7 +52,10 @@
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
+}
 
+.currentQuestionAnswer-container {
+    /* border: 1px solid blue; */
 }
 
 .currentQuestion-container {
