@@ -31,6 +31,7 @@ class QuestionsList extends React.Component {
             this.setState({
                 questionIndex: this.state.questionIndex +1,
                 answerPicked: false,
+                
             });
         }
         else if (this.state.questionIndex === this.props.questions.length - 1) {
@@ -38,6 +39,7 @@ class QuestionsList extends React.Component {
                 quizFinished: true,
                 answerPicked: false,
             });
+            this.finalQuizScore();
         }
     }
 
@@ -54,10 +56,9 @@ class QuestionsList extends React.Component {
             this.setState({
                 answerPicked: true,
             });
-            this.finalQuizScore();
             return <></>
         } 
-        else {
+        else if (this.state.radioPick !== null) {
             axios({
                     method: 'get',
                     url: `https://lambda-study-app.herokuapp.com/api/quizzes/${this.props.quizId}/questions/${this.props.questions[this.state.questionIndex].id}/response`,
@@ -68,97 +69,114 @@ class QuestionsList extends React.Component {
                 })
                 .then(res => {
                     if(res.data.correct === true) {
+                        // this.finalQuizScore();
                         console.log(res.data.correct)
                         this.setState({
                             quizScore: this.state.quizScore +1,
                             radioPick: null,
                             answerPicked: false,
                         });
-                        this.finalQuizScore();
+                        
                     }
                     else {
                         console.log(res.data.correct)
+                        // this.finalQuizScore();
                         this.setState({
                             radioPick: null,
                             answerPicked: false,
                         });
-                        this.finalQuizScore();
+                        
                     }
                 })
                 .catch(err => {
                     console.log(err);
                 });
+                // this.finalQuizScore();
         }
         setTimeout(() => this.nextQuestion(), 200);
+        setTimeout(() => this.finalQuizScore(), 500);
         
     }
 
     finalQuizScore = () => {
         const tempScore = (parseInt((this.state.quizScore) / parseInt(this.props.questions.length) * 100).toFixed(2));
-        console.log(tempScore);
+        // console.log(tempScore);
         
         switch (true) {
-            case (tempScore < 59):
+            case (tempScore <= 59):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'F',
                 });
             break;
-            case (60 <= tempScore <= 63):
+            case ( tempScore <= 63):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'D-',
                 });
             break;
-            case (64 <= tempScore <= 67):
+            case (tempScore <= 67):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'D',
                 });
             break;
-            case (68 <= tempScore <= 69):
+            case (tempScore <= 69):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'D+',
                 });
             break;
-            case (70 <= tempScore <= 73):
+            case (tempScore <= 73):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'C-',
                 });
             break;
-            case (74 <= tempScore <= 77):
+            case (tempScore <= 77):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'C',
                 });
             break;
-            case (78 <= tempScore <= 79):
+            case (tempScore <= 79):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'C+',
                 });
             break;
-            case (80 <= tempScore <= 83):
+            case (tempScore <= 83):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'B-',
                 });
             break;
-            case (84 <= tempScore <= 87):
+            case (tempScore <= 87):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'B',
                 });
             break;
-            case (88 <= tempScore <= 89):
+            case (tempScore <= 89):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'B+',
                 });
             break;
-            case (90 <= tempScore <= 93):
+            case (tempScore <= 93):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'A-',
                 });
             break;
-            case (94 <= tempScore <= 97):
+            case (tempScore <= 97):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'A',
                 });
             break;
-            case (98 <= tempScore <= 100):
+            case (tempScore <= 100):
+                console.log(tempScore);
                 this.setState({
                     finalScore: 'A+',
                 });
@@ -186,7 +204,6 @@ class QuestionsList extends React.Component {
             return <div></div>
         }
         console.log(this.state.finalScore);
-        console.log(this.state.quizScore);
         return (
             <div>
                 <div className={this.state.quizStarted ? 'question-container' : 'startQuiz'}>

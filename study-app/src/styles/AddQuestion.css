@@ -54,9 +54,9 @@
     flex-direction: column;
 }
 
-.currentQuestionAnswer-container {
+/* .currentQuestionAnswer-container { */
     /* border: 1px solid blue; */
-}
+/* } */
 
 .currentQuestion-container {
     border: 1px inset rgb(190, 190, 190);
