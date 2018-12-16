@@ -40,8 +40,37 @@ export const FETCH_QUIZ_START = 'FETCH_QUIZ_START';
 export const FETCH_QUIZ_SUCCESS ='FETCH_QUIZ_SUCCESS';
 export const FETCH_QUIZ_FAILURE ='FETCH_QUIZ_FAILURE';
 
+export const UPDATE_QUIZUSER_RELATION_START = 'UPDATE_QUIZUSER_RELATION_START';
+export const UPDATE_QUIZUSER_RELATION_SUCCESS = 'UPDATE_QUIZUSER_RELATION_SUCCESS';
+export const UPDATE_QUIZUSER_RELATION_FAILURE = 'UPDATE_QUIZUSER_RELATION_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
+
+
+export const updateQuizUserRelation = (quizId, vote, favBool, score) => dispatch => {
+    dispatch({ type: UPDATE_QUIZUSER_RELATION_START });
+    console.log(quizId, vote, favBool, score);
+    axios({
+            method: 'patch',
+            url: `${baseUrl}api/quizzes/${quizId}`,
+            data: {
+                vote: vote,
+                favorite: favBool,
+                score: score,
+            },
+            
+            headers: {
+                Authorization: localStorage.getItem('userToken'),
+            }
+        })
+        .then(res => {
+            dispatch({ type: UPDATE_QUIZUSER_RELATION_SUCCESS });
+        })
+        .catch(err => {
+            dispatch({ type: UPDATE_QUIZUSER_RELATION_FAILURE, payload: err });
+        });
+};
 
 export const fetchQuiz = (quizId) => dispatch => {
     dispatch({ type: FETCH_QUIZ_START });
@@ -54,11 +83,9 @@ export const fetchQuiz = (quizId) => dispatch => {
             }
         })
         .then(res => {
-            // console.log(res);
             dispatch({ type: FETCH_QUIZ_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: FETCH_QUIZ_FAILURE, payload: err });
         });
 };
@@ -82,11 +109,9 @@ export const editQuestion = (quizId, questionId, question, ans1, ans2, ans3, ans
             }
         })
         .then(res => {
-            // console.log(res);
             dispatch({ type: EDIT_QUESTION_SUCCESS });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: EDIT_QUESTION_FAILURE, payload: err });
         });
 };
@@ -106,24 +131,15 @@ export const deleteQuestion = (quizId, questionId) => dispatch => {
             }
         })
         .then(res => {
-            // console.log(res);
             dispatch({ type: DELETE_QUESTION_SUCCESS });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: DELETE_QUESTION_FAILURE, payload: err });
         });
 };
 
 export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {
     dispatch({ type: ADD_QUESTION_START });
-    // console.log('quizID: ' + id);
-    // console.log('question: ' + question);
-    // console.log('answer1: ' + ans1);
-    // console.log('answer2: ' + ans2);
-    // console.log('answer3: ' + ans3);
-    // console.log('answer4: ' + ans4);
-    console.log('correctAnswer#: ', typeof parseInt(correctAns));
     axios({
         method: 'post',
         url: `${baseUrl}api/quizzes/${id}/questions`,
@@ -142,11 +158,9 @@ export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) =>
         }
     })
     .then(res => {
-        // console.log(res);
         dispatch({ type: ADD_QUESTION_SUCCESS });
     })
     .catch(err => {
-        // console.log(err);
         dispatch({ type: ADD_QUESTION_FAILURE, payload: err });
     });
 
@@ -167,11 +181,9 @@ export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
             }
         })
         .then(res => {
-            // console.log(res);
             dispatch({ type: EDIT_QUIZINFO_SUCCESS });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: EDIT_QUIZINFO_FAILURE, payload: err });
         });
 };
@@ -181,11 +193,9 @@ export const fetchQuizzes = () => dispatch => {
     axios
         .get(`${baseUrl}api/quizzes`)
         .then(res => {
-            // console.log(res);
             dispatch({ type: FETCHING_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: FETCHING_FAILURE, payload: err });
         });
 };
@@ -195,11 +205,9 @@ export const fetchQuestions = id => dispatch => {
     axios
         .get(`${baseUrl}api/quizzes/${id}/questions`)
         .then(res => {
-            // console.log(res);
             dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: FETCH_QUESTIONS_FAILURE, payload: err });
         });
 };
@@ -209,11 +217,9 @@ export const fetchTopics = () => dispatch => {
     axios
         .get(`${baseUrl}api/quizzes/topics`)
         .then(res => {
-            // console.log(res);
             dispatch({ type: FETCH_TOPICS_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            // console.log(err);
             dispatch({ type: FETCH_TOPICS_FAILURE, payload: err });
         });
 };
@@ -229,7 +235,6 @@ export const deleteQuiz = (quizId, token) => dispatch => {
             }
         })
         .then(res => {
-            // console.log(res);
             dispatch({ type: DELETE_QUIZ_SUCCESS });
         })
         .catch(err => {

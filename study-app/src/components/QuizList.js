@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchQuizzes, fetchTopics } from '../actions';
+import { fetchQuizzes } from '../actions';
 import '../styles/QuizCard.css';
 
 import QuizCard from './QuizCard';
@@ -19,7 +19,6 @@ class QuizList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // allTopics: [],
             topicSelected: '',
             title: '',
             topic: '',
@@ -40,9 +39,7 @@ class QuizList extends React.Component {
     }
 
     componentDidMount() {
-        console.log('this function is being called')
         this.props.fetchQuizzes();
-        this.props.fetchTopics();
     }
 
     clickedTopic = text => {
@@ -125,12 +122,6 @@ class QuizList extends React.Component {
                                 <span key={index} onClick={() => this.clickedTopic(topic)}><Topics topic={topic}/></span>
                             );
                         })}
-                        {/* {fetching topics from api endpoint option - currently returns all topics even if they no longer exist} */}
-                        {/* {this.props.topics.map(topic => {
-                            return (
-                                <span key={topic.id} onClick={() => this.clickedTopic(topic)}><Topics topic={topic.name} /></span>
-                            );
-                        })} */}
                     </div>
                 </div>
                 <div className='quizzes-container-content'>
@@ -161,7 +152,6 @@ const mapStateToProps = state => {
     // console.log(state);
     return {
         quizzes: state.quizzes,
-        topics: state.topics,
         fetching: state.fetching,
         addingQuiz: state.addingQuiz,
         deleteQuiz: state.deleteQuiz,
@@ -170,5 +160,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchQuizzes, fetchTopics }
+    { fetchQuizzes }
 ) (QuizList);

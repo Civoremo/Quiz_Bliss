@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteQuiz, fetchQuiz } from '../actions';
-import axios from 'axios';
+import { deleteQuiz, fetchQuiz, fetchQuestions, updateQuizUserRelation } from '../actions';
 import '../styles/ViewQuizCard.css';
 
 import QuestionsList from './QuestionsList';
 import EditQuiz from './EditQuiz';
-
-const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 class ViewQuizCard extends React.Component {
     constructor() {
@@ -16,13 +13,53 @@ class ViewQuizCard extends React.Component {
         this.state = {
             displayModal: false,
             displayEditForm: false,
+            quizLetterGrade: '',
+            userVote: null,
+            favorite: null,
+            upVoted: null,
+            downVoted: null,
+        }
+    }
+
+    componentDidUpdate(prevState) {
+        if(this.props.quizData !== prevState.quizData) {
+            if(!this.props.fetchingQuestions) {
+                this.finalQuizScore();
+                this.setState({
+                    userVote: this.props.quizData.user_vote,
+                    favorite: this.props.quizData.favorite,
+                });
+                if(this.props.quizData.user_vote === 1) {
+                    this.setState({
+                        upVoted: true,
+                        downVoted: false,
+                    });
+                }
+                else if(this.props.quizData.user_vote === -1) {
+                    this.setState({
+                        downVoted: true,
+                        upVoted: false,
+                    });
+                }
+                else {
+                    this.setState({
+                        upVoted: false,
+                        downVoted: false,
+                    });
+                }
+            }
+        }
+        if(this.props.updateUserQuiz !== prevState.updateUserQuiz) {
+            if(!this.props.fetchQuizBool) {
+                this.props.fetchQuiz(this.props.match.params.quizId);
+            }
         }
     }
 
     componentDidMount() {
-        // this.getQuiz();
         this.props.fetchQuiz(this.props.match.params.quizId);
-
+        this.props.fetchQuestions(this.props.match.params.quizId);
+        
     }
 
     deleteQuiz = e => {
@@ -46,10 +83,144 @@ class ViewQuizCard extends React.Component {
         });
     }
 
+    finalQuizScore = () => {
+        const tempScore = (parseInt((this.props.quizData.score) / parseInt(this.props.questions.length) * 100).toFixed(2));
+        
+        switch (true) {
+            case (tempScore <= 59):
+                this.setState({
+                    quizLetterGrade: 'F',
+                });
+            break;
+            case ( tempScore <= 63):
+                this.setState({
+                    quizLetterGrade: 'D-',
+                });
+            break;
+            case (tempScore <= 67):
+                this.setState({
+                    quizLetterGrade: 'D',
+                });
+            break;
+            case (tempScore <= 69):
+                this.setState({
+                    quizLetterGrade: 'D+',
+                });
+            break;
+            case (tempScore <= 73):
+                this.setState({
+                    quizLetterGrade: 'C-',
+                });
+            break;
+            case (tempScore <= 77):
+                this.setState({
+                    quizLetterGrade: 'C',
+                });
+            break;
+            case (tempScore <= 79):
+                this.setState({
+                    quizLetterGrade: 'C+',
+                });
+            break;
+            case (tempScore <= 83):
+                this.setState({
+                    quizLetterGrade: 'B-',
+                });
+            break;
+            case (tempScore <= 87):
+                this.setState({
+                    quizLetterGrade: 'B',
+                });
+            break;
+            case (tempScore <= 89):
+                this.setState({
+                    quizLetterGrade: 'B+',
+                });
+            break;
+            case (tempScore <= 93):
+                this.setState({
+                    quizLetterGrade: 'A-',
+                });
+            break;
+            case (tempScore <= 97):
+                this.setState({
+                    quizLetterGrade: 'A',
+                });
+            break;
+            case (tempScore <= 100):
+                this.setState({
+                    quizLetterGrade: 'A+',
+                });
+            break;
+            default:
+            break;
+        }
+    }
+
+    upVoteQuiz = e => {
+        e.preventDefault();
+        if(this.state.userVote === 0 || this.state.userVote === -1) {
+            this.setState({
+                userVote: 1,
+                upVoted: true,
+                downVoted: false,
+            }, () => {
+                this.updateUserQuizData();
+            });
+        } else if(this.state.userVote === 1) {
+            this.setState({
+                userVote: 0,
+                upVoted: false,
+                downVoted: false,
+            }, () => {
+                this.updateUserQuizData();
+            });
+        }
+    }
+
+    downVoteQuiz = e => {
+        e.preventDefault();
+        if(this.state.userVote !== -1) {
+            this.setState({
+                userVote: -1,
+                upVoted: false,
+                downVoted: true,
+            }, () => {
+                this.updateUserQuizData();
+            });
+        } else if (this.state.userVote === -1) {
+            this.setState({
+                userVote: 0,
+                upVoted: false,
+                downVoted: false,
+            }, () => {
+                this.updateUserQuizData();
+            });
+        }
+    }
+
+    toggleFavQuiz = e => {
+        e.preventDefault();
+        this.setState({
+            favorite: !this.state.favorite,
+        }, () => {
+            this.updateUserQuizData();
+        });
+    }
+
+    updateUserQuizData = e => {
+        // e.preventDefault();
+        // quizId, vote, favBool, score
+        this.props.updateQuizUserRelation(this.props.match.params.quizId, this.state.userVote, this.state.favorite, this.props.quizData.score);
+    }
+
+
     render () {
         if(this.props.quizData.length === 0) {
             return <></>
         }
+        // console.log(this.state.quizLetterGrade);
+        console.log(this.state.userVote);
         return (
             <div className='viewQuiz-container'>
                 <div>
@@ -69,26 +240,36 @@ class ViewQuizCard extends React.Component {
                             </div>
                         </div>
                         <div className='quiz-author-info-container'>
-                            <div>
-                                <img src={this.props.quizData.author.img_url === null ? "https://bit.ly/2C9tLJe" : `${this.props.quizData.author.img_url}`} alt="profile" className='quiz-profile-image'/>
-                            </div>
-                            <div>
-                                <div className='quizView-info'>Title: <span className='quizView-text'>{this.props.quizData.title}</span></div>
-                                <div className='quizView-info'>Topic: <span className='quizView-text'>{this.props.quizData.topic}</span></div>
-                                <div className='quizView-info'>Author: <span className='quizView-text'>{this.props.quizData.author.username}</span></div>
-                                <div className='quizView-info'>Votes: <span className='quizView-text'>{this.props.quizData.votes}</span></div>
-                            </div>
-                            <div>
-                                <div>upVote</div>
-                                <div>downVote</div>
-                            </div>
-                            <div>
+                            <div className='quizContainer'>
                                 <div>
-                                    Your Quiz Score:
+                                    <img src={this.props.quizData.author.img_url === null ? "https://bit.ly/2C9tLJe" : `${this.props.quizData.author.img_url}`} alt="profile" className='quiz-profile-image'/>
+                                    <div className='quizVote-container'>
+                                        <button className={this.state.upVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.upVoteQuiz}>up</button>
+                                        <button className={this.state.downVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.downVoteQuiz}>down</button>
+                                        <button className={this.state.favorite ? 'quizVote-content-fav' : 'quizVote-content'} onClick={this.toggleFavQuiz}>fav</button>
+                                    </div>
                                 </div>
                                 <div>
-                                    A+
+                                    <div className='quizView-info'>Title: <span className='quizView-text'>{this.props.quizData.title}</span></div>
+                                    <div className='quizView-info'>Topic: <span className='quizView-text'>{this.props.quizData.topic}</span></div>
+                                    <div className='quizView-info'>Author: <span className='quizView-text'>{this.props.quizData.author.username}</span></div>
+                                    <div className='quizView-info'>Votes: <span className='quizView-text'>{this.props.quizData.votes}</span></div>
                                 </div>
+                            </div>
+                            
+                            <div className='quizUserInfo-container'>
+                                <div className='quizScore-container'>
+                                    {/* <div className='score-container'>
+                                        Your Quiz Score: {this.props.quizData.score}
+                                    </div> */}
+                                    <div className='gradeLetter-container'>
+                                        <div className='gradeLetter-title'>Your Quiz Grade</div>
+                                        <div className='gradeLetter-content'>
+                                            {this.state.quizLetterGrade}
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -96,7 +277,7 @@ class ViewQuizCard extends React.Component {
                         <EditQuiz quizId={this.props.match.params.quizId} />
                     </div>
                     <div className='questionsListForm'>
-                        <QuestionsList quizId={this.props.match.params.quizId}/>
+                        <QuestionsList quizId={this.props.match.params.quizId} quizQuestions={this.props.questions}/>
                     </div>
                 </div>
             </div>
@@ -107,12 +288,15 @@ class ViewQuizCard extends React.Component {
 const mapStateToProps = state => {
     return {
         quizData: state.currentQuiz,
+        questions: state.questions,
         fetchQuizBool: state.fetchQuiz,
+        fetchingQuestions: state.fetchingQuestions,
         deleteQuiz: state.deleteQuiz,
+        updateUserQuiz: state.updateUserQuizRelation,
     };
 }
 
 export default connect(
     mapStateToProps,
-    { deleteQuiz, fetchQuiz }
+    { deleteQuiz, fetchQuiz, fetchQuestions, updateQuizUserRelation }
 )(ViewQuizCard);

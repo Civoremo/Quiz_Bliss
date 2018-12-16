@@ -29,6 +29,9 @@ import {
     FETCH_QUIZ_START,
     FETCH_QUIZ_SUCCESS,
     FETCH_QUIZ_FAILURE,
+    UPDATE_QUIZUSER_RELATION_START,
+    UPDATE_QUIZUSER_RELATION_SUCCESS,
+    UPDATE_QUIZUSER_RELATION_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -46,11 +49,31 @@ const initialState = {
     editingQuestion: false,
     editingQuiz: false,
     addingQuestion: false,
+    updateUserQuizRelation: false,
     error: null,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Update User/Quiz Relationship
+        case UPDATE_QUIZUSER_RELATION_START:
+            return {
+                ...state,
+                updateUserQuizRelation: true,
+            };
+        case UPDATE_QUIZUSER_RELATION_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                updateUserQuizRelation: false,
+            };
+        case UPDATE_QUIZUSER_RELATION_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                updateUserQuizRelation: false,
+            };
+
         // Fetch Quiz Cases
         case FETCH_QUIZ_START:
             return {
@@ -60,6 +83,7 @@ export default (state = initialState, action) => {
         case FETCH_QUIZ_SUCCESS:
             return {
                 ...state,
+                error: null,
                 fetchQuiz: false,
                 currentQuiz: action.payload,
             };

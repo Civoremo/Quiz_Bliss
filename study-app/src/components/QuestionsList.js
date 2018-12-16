@@ -21,11 +21,6 @@ class QuestionsList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const id = this.props.quizId;
-        this.props.fetchQuestions(id);
-    }
-
     nextQuestion = e => {
         if(this.state.questionIndex < this.props.questions.length - 1) {
             this.setState({
@@ -69,8 +64,6 @@ class QuestionsList extends React.Component {
                 })
                 .then(res => {
                     if(res.data.correct === true) {
-                        // this.finalQuizScore();
-                        console.log(res.data.correct)
                         this.setState({
                             quizScore: this.state.quizScore +1,
                             radioPick: null,
@@ -79,8 +72,6 @@ class QuestionsList extends React.Component {
                         
                     }
                     else {
-                        console.log(res.data.correct)
-                        // this.finalQuizScore();
                         this.setState({
                             radioPick: null,
                             answerPicked: false,
@@ -91,7 +82,6 @@ class QuestionsList extends React.Component {
                 .catch(err => {
                     console.log(err);
                 });
-                // this.finalQuizScore();
         }
         setTimeout(() => this.nextQuestion(), 200);
         setTimeout(() => this.finalQuizScore(), 500);
@@ -100,83 +90,69 @@ class QuestionsList extends React.Component {
 
     finalQuizScore = () => {
         const tempScore = (parseInt((this.state.quizScore) / parseInt(this.props.questions.length) * 100).toFixed(2));
-        // console.log(tempScore);
         
         switch (true) {
             case (tempScore <= 59):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'F',
                 });
             break;
             case ( tempScore <= 63):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'D-',
                 });
             break;
             case (tempScore <= 67):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'D',
                 });
             break;
             case (tempScore <= 69):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'D+',
                 });
             break;
             case (tempScore <= 73):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'C-',
                 });
             break;
             case (tempScore <= 77):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'C',
                 });
             break;
             case (tempScore <= 79):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'C+',
                 });
             break;
             case (tempScore <= 83):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'B-',
                 });
             break;
             case (tempScore <= 87):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'B',
                 });
             break;
             case (tempScore <= 89):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'B+',
                 });
             break;
             case (tempScore <= 93):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'A-',
                 });
             break;
             case (tempScore <= 97):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'A',
                 });
             break;
             case (tempScore <= 100):
-                console.log(tempScore);
                 this.setState({
                     finalScore: 'A+',
                 });
@@ -203,7 +179,6 @@ class QuestionsList extends React.Component {
         if(this.props.questions.length === 0) {
             return <div></div>
         }
-        console.log(this.state.quizScore);
         return (
             <div>
                 <div className={this.state.quizStarted ? 'question-container' : 'startQuiz'}>
