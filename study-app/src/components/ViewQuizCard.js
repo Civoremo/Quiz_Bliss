@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteQuiz } from '../actions';
+import { deleteQuiz, fetchQuiz } from '../actions';
 import axios from 'axios';
 import '../styles/ViewQuizCard.css';
 
@@ -14,33 +14,15 @@ class ViewQuizCard extends React.Component {
     constructor() {
         super();
         this.state = {
-            quiz: {},
-            author: {},
-            authorImg: '',
             displayModal: false,
             displayEditForm: false,
         }
     }
 
     componentDidMount() {
-        this.getQuiz();
+        // this.getQuiz();
+        this.props.fetchQuiz(this.props.match.params.quizId);
 
-    }
-
-    getQuiz = () => {
-        axios
-            .get(`${baseUrl}api/quizzes/${this.props.match.params.quizId}`)
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    quiz: res.data,
-                    author: res.data.author,
-                    authorImg: res.data.author.img_url,
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     deleteQuiz = e => {
@@ -65,10 +47,9 @@ class ViewQuizCard extends React.Component {
     }
 
     render () {
-        if(this.state.quiz.length === 0) {
+        if(this.props.quizData.length === 0) {
             return <></>
         }
-        console.log(this.state.author.img_url);
         return (
             <div className='viewQuiz-container'>
                 <div>
@@ -89,13 +70,25 @@ class ViewQuizCard extends React.Component {
                         </div>
                         <div className='quiz-author-info-container'>
                             <div>
-                                <img src={this.state.authorImg === null ? "https://bit.ly/2C9tLJe" : `${this.state.authorImg}`} alt="profile" className='quiz-profile-image'/>
+                                <img src={this.props.quizData.author.img_url === null ? "https://bit.ly/2C9tLJe" : `${this.props.quizData.author.img_url}`} alt="profile" className='quiz-profile-image'/>
                             </div>
                             <div>
-                                <div className='quizView-info'>Title: <span className='quizView-text'>{this.state.quiz.title}</span></div>
-                                <div className='quizView-info'>Topic: <span className='quizView-text'>{this.state.quiz.topic}</span></div>
-                                <div className='quizView-info'>Author: <span className='quizView-text'>{this.state.author.username}</span></div>
-                                <div className='quizView-info'>Votes: <span className='quizView-text'>{this.state.quiz.votes}</span></div>
+                                <div className='quizView-info'>Title: <span className='quizView-text'>{this.props.quizData.title}</span></div>
+                                <div className='quizView-info'>Topic: <span className='quizView-text'>{this.props.quizData.topic}</span></div>
+                                <div className='quizView-info'>Author: <span className='quizView-text'>{this.props.quizData.author.username}</span></div>
+                                <div className='quizView-info'>Votes: <span className='quizView-text'>{this.props.quizData.votes}</span></div>
+                            </div>
+                            <div>
+                                <div>upVote</div>
+                                <div>downVote</div>
+                            </div>
+                            <div>
+                                <div>
+                                    Your Quiz Score:
+                                </div>
+                                <div>
+                                    A+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -113,12 +106,13 @@ class ViewQuizCard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        fetchQuiz: state.fetchQuiz,
+        quizData: state.currentQuiz,
+        fetchQuizBool: state.fetchQuiz,
         deleteQuiz: state.deleteQuiz,
     };
 }
 
 export default connect(
     mapStateToProps,
-    { deleteQuiz }
+    { deleteQuiz, fetchQuiz }
 )(ViewQuizCard);

@@ -26,12 +26,16 @@ import {
     EDIT_QUESTION_START,
     EDIT_QUESTION_SUCCESS,
     EDIT_QUESTION_FAILURE,
+    FETCH_QUIZ_START,
+    FETCH_QUIZ_SUCCESS,
+    FETCH_QUIZ_FAILURE,
 } from '../actions';
 
 const initialState = {
     quizzes: [],
     topics: [],
     questions: [],
+    currentQuiz: [],
     fetching: false,
     fetchingQuestions: false,
     fetchTopics: false,
@@ -47,6 +51,25 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Fetch Quiz Cases
+        case FETCH_QUIZ_START:
+            return {
+                ...state,
+                fetchQuiz:true,
+            };
+        case FETCH_QUIZ_SUCCESS:
+            return {
+                ...state,
+                fetchQuiz: false,
+                currentQuiz: action.payload,
+            };
+        case FETCH_QUIZ_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                fetchQuiz: false,
+            };
+
         // Edit Question Cases
         case EDIT_QUESTION_START:
             return {

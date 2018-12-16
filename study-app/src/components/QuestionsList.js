@@ -203,7 +203,7 @@ class QuestionsList extends React.Component {
         if(this.props.questions.length === 0) {
             return <div></div>
         }
-        console.log(this.state.finalScore);
+        console.log(this.state.quizScore);
         return (
             <div>
                 <div className={this.state.quizStarted ? 'question-container' : 'startQuiz'}>
