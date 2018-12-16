@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchQuestions } from '../actions';
+import { fetchQuestions, updateQuizUserRelation } from '../actions';
 import axios from 'axios';
 
 import '../styles/QuestionsList.css';
@@ -33,6 +33,8 @@ class QuestionsList extends React.Component {
             this.setState({
                 quizFinished: true,
                 answerPicked: false,
+            }, () => {
+                this.updateUserQuizData();
             });
             this.finalQuizScore();
         }
@@ -174,6 +176,16 @@ class QuestionsList extends React.Component {
         window.location.reload();
     }
 
+    updateUserQuizData = e => {
+        if(this.state.quizScore > this.props.userScore) {
+            // quizId, vote, favBool, score
+            this.props.updateQuizUserRelation(this.props.quizId, this.props.userVote, this.props.fav, this.state.quizScore);
+        }
+        else {
+            return null;
+        }
+    }
+
 
     render () {
         if(this.props.questions.length === 0) {
@@ -233,5 +245,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchQuestions }
+    { fetchQuestions, updateQuizUserRelation }
 )(QuestionsList);

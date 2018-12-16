@@ -18,6 +18,7 @@ class ViewQuizCard extends React.Component {
             favorite: null,
             upVoted: null,
             downVoted: null,
+            userScore: null,
         }
     }
 
@@ -28,6 +29,7 @@ class ViewQuizCard extends React.Component {
                 this.setState({
                     userVote: this.props.quizData.user_vote,
                     favorite: this.props.quizData.favorite,
+                    userScore: this.props.quizData.score,
                 });
                 if(this.props.quizData.user_vote === 1) {
                     this.setState({
@@ -50,7 +52,7 @@ class ViewQuizCard extends React.Component {
             }
         }
         if(this.props.updateUserQuiz !== prevState.updateUserQuiz) {
-            if(!this.props.fetchQuizBool) {
+            if(!this.props.fetchQuizBool && !this.props.updateUserQuiz) {
                 this.props.fetchQuiz(this.props.match.params.quizId);
             }
         }
@@ -58,8 +60,7 @@ class ViewQuizCard extends React.Component {
 
     componentDidMount() {
         this.props.fetchQuiz(this.props.match.params.quizId);
-        this.props.fetchQuestions(this.props.match.params.quizId);
-        
+        this.props.fetchQuestions(this.props.match.params.quizId);        
     }
 
     deleteQuiz = e => {
@@ -209,7 +210,6 @@ class ViewQuizCard extends React.Component {
     }
 
     updateUserQuizData = e => {
-        // e.preventDefault();
         // quizId, vote, favBool, score
         this.props.updateQuizUserRelation(this.props.match.params.quizId, this.state.userVote, this.state.favorite, this.props.quizData.score);
     }
@@ -219,8 +219,6 @@ class ViewQuizCard extends React.Component {
         if(this.props.quizData.length === 0) {
             return <></>
         }
-        // console.log(this.state.quizLetterGrade);
-        console.log(this.state.userVote);
         return (
             <div className='viewQuiz-container'>
                 <div>
@@ -277,7 +275,7 @@ class ViewQuizCard extends React.Component {
                         <EditQuiz quizId={this.props.match.params.quizId} />
                     </div>
                     <div className='questionsListForm'>
-                        <QuestionsList quizId={this.props.match.params.quizId} quizQuestions={this.props.questions}/>
+                        <QuestionsList quizId={this.props.match.params.quizId} quizQuestions={this.props.questions} fav={this.state.favorite} userVote={this.state.userVote} currentScore={this.state.userScore}/>
                     </div>
                 </div>
             </div>
