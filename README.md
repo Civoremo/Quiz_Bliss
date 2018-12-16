@@ -1,6 +1,3 @@
 # React-Redux-Study-App
 
-Create/View/Take Quiz
--accumulate points for taking a quiz
--leaderboards
--...
+using https://github.com/llwor94/study-app-api
