@@ -78,10 +78,16 @@
 
 .below-auth-container {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
 }
 
 .toggle-auth-link {
     color: blue;
     cursor: pointer;
+}
+
+.guestSignin-text {
+    margin-bottom: 10px;
 }

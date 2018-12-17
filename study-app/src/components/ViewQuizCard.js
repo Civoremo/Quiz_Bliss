@@ -25,12 +25,20 @@ class ViewQuizCard extends React.Component {
     componentDidUpdate(prevState) {
         if(this.props.quizData !== prevState.quizData) {
             if(!this.props.fetchingQuestions) {
-                this.finalQuizScore();
-                this.setState({
-                    userVote: this.props.quizData.user_vote,
-                    favorite: this.props.quizData.favorite,
-                    userScore: this.props.quizData.score,
-                });
+                if(this.props.quizData.score === 0) {
+                    this.setState({
+                        quizLetterGrade: 'Take Quiz for Score'
+                    });
+                }
+                else {
+                    this.finalQuizScore();
+                    this.setState({
+                        userVote: this.props.quizData.user_vote,
+                        favorite: this.props.quizData.favorite,
+                        userScore: this.props.quizData.score,
+                    });
+                }
+                
                 if(this.props.quizData.user_vote === 1) {
                     this.setState({
                         upVoted: true,
@@ -86,7 +94,8 @@ class ViewQuizCard extends React.Component {
 
     finalQuizScore = () => {
         const tempScore = (parseInt((this.props.quizData.score) / parseInt(this.props.questions.length) * 100).toFixed(2));
-        
+        console.log(tempScore);
+        console.log(this.props.quizData.score);
         switch (true) {
             case (tempScore <= 59):
                 this.setState({

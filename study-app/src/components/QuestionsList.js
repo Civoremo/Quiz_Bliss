@@ -177,13 +177,13 @@ class QuestionsList extends React.Component {
     }
 
     updateUserQuizData = e => {
-        if(this.state.quizScore > this.props.userScore) {
+        // if(this.state.quizScore > this.props.userScore) {
             // quizId, vote, favBool, score
             this.props.updateQuizUserRelation(this.props.quizId, this.props.userVote, this.props.fav, this.state.quizScore);
-        }
-        else {
-            return null;
-        }
+        // }
+        // else {
+        //     return null;
+        // }
     }
 
 

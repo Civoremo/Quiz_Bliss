@@ -16,7 +16,7 @@
 
 .question-container {
     width: 800px;
-    height: 400px;
+    min-height: 400px;
     background-color: rgb(255, 255, 255);
     border: 1px outset rgb(121, 121, 121);
     display: flex;

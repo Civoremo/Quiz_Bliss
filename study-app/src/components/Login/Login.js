@@ -93,6 +93,13 @@ class Login extends React.Component {
         });
     }
 
+    guestSignIn = e => {
+        e.preventDefault();
+        localStorage.setItem('userToken', 'guest');
+        localStorage.setItem('username', 'guest');
+        window.location.reload();
+    }
+
 
     render() {
         return (
@@ -187,8 +194,13 @@ class Login extends React.Component {
                 </div>
 
                 <div className='below-auth-container'>
-                    <h3 className={this.state.create ? '' : 'hide'}>Have an account? <span className='toggle-auth-link' onClick={() => this.toggleLogin()}>Click here to login.</span></h3>
-                    <h3 className={this.state.create ? 'hide' : ''}>Need a new account? <span className='toggle-auth-link' onClick={() => this.toggleLogin()}>Click here for new account.</span></h3>
+                    <div className='guestSignin-text'>
+                        <h3>Sign in as Guest. <span  className='toggle-auth-link' onClick={this.guestSignIn}>Click here.</span></h3>
+                    </div>
+                    <div>
+                        <h3 className={this.state.create ? '' : 'hide'}>Have an account? <span className='toggle-auth-link' onClick={() => this.toggleLogin()}>Click here to login.</span></h3>
+                        <h3 className={this.state.create ? 'hide' : ''}>Need a new account? <span className='toggle-auth-link' onClick={() => this.toggleLogin()}>Click here for new account.</span></h3>
+                    </div>
                 </div>
 
 
