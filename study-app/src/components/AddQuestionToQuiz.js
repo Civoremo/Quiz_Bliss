@@ -34,6 +34,9 @@ class AddQuestionToQuiz extends React.Component {
     render() {
         return (
             <div className='addEditQuestion-content'>
+                <div className='addEditQuestion-backBtn'>
+                    <button className='backToQuizBtn' onClick={() => this.props.history.push(`/view/${this.props.match.params.quizId}`)}>Back to Quiz</button>
+                </div>
                 <AddQuestionForm quizId={this.props.match.params.quizId}/>
                 <div className='questionAnswer-container'>
                     {this.props.allQuestions.map((question, index) => {
