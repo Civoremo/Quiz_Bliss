@@ -49,9 +49,8 @@ const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 
 export const updateQuizUserRelation = (quizId, vote, favBool, score) => dispatch => {
-    if(localStorage.getItem('userToken' !== 'guest')) {
+    if(localStorage.getItem('userToken') !== 'guest') {
     dispatch({ type: UPDATE_QUIZUSER_RELATION_START });
-    console.log(quizId, vote, favBool, score);
         axios({
                 method: 'patch',
                 url: `${baseUrl}api/quizzes/${quizId}`,
