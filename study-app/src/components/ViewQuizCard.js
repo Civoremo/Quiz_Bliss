@@ -246,7 +246,7 @@ class ViewQuizCard extends React.Component {
             <div className='viewQuiz-container'>
                 <div>
                     <div className='quiz-info-container'>
-                        <div className={localStorage.getItem('userToken') === 'guest' ? 'guestHideFeature' : 'quiz-delete-btn'}>
+                        <div className={localStorage.getItem('userToken') === 'guest' || localStorage.getItem('username') !== `${this.props.quizData.author.username}` ? 'guestHideFeature' : 'quiz-delete-btn'}>
                             <span className='entireQuiz-editQuizBtn' onClick={this.editQuizForm}>{this.state.displayEditForm ? 'cancel edit' : 'edit quiz'}</span>
                             <Link to={`/addQuestion/${this.props.match.params.quizId}`} className='entireQuiz-editQuestionsBtn'>edit questions</Link>
                             <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete quiz</span>
