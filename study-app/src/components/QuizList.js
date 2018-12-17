@@ -127,7 +127,7 @@ class QuizList extends React.Component {
                 <div className='quizzes-container-content'>
                     <h3 className='list-title'>Quizzes</h3>
                     <div className='quizzes-container'>
-                        <div className='createNewToggle-btn-container'>
+                        <div className={localStorage.getItem('userToken') === 'guest' ? 'guestHideFeature' : 'createNewToggle-btn-container'}>
                             <button onClick={() => this.createNewToggle()} className='createForm-btn'>{this.state.newToggle ? 'Cancel New Quiz' :'+ Create New Quiz'}</button>
                         </div>
                         <div className={this.state.newToggle ? 'createNewForm-container' : 'displayToggle'}>

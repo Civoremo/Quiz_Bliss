@@ -99,3 +99,6 @@ a {
     margin: 0 25px;
     margin-bottom: 10px;
 }
+.guestHideFeature {
+    display: none;
+}

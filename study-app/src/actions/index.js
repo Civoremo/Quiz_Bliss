@@ -49,38 +49,37 @@ const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
 
 export const updateQuizUserRelation = (quizId, vote, favBool, score) => dispatch => {
+    if(localStorage.getItem('userToken' !== 'guest')) {
     dispatch({ type: UPDATE_QUIZUSER_RELATION_START });
     console.log(quizId, vote, favBool, score);
-    axios({
-            method: 'patch',
-            url: `${baseUrl}api/quizzes/${quizId}`,
-            data: {
-                vote: vote,
-                favorite: favBool,
-                score: score,
-            },
-            
-            headers: {
-                Authorization: localStorage.getItem('userToken'),
-            }
-        })
-        .then(res => {
-            dispatch({ type: UPDATE_QUIZUSER_RELATION_SUCCESS });
-        })
-        .catch(err => {
-            dispatch({ type: UPDATE_QUIZUSER_RELATION_FAILURE, payload: err });
-        });
+        axios({
+                method: 'patch',
+                url: `${baseUrl}api/quizzes/${quizId}`,
+                data: {
+                    vote: vote,
+                    favorite: favBool,
+                    score: score,
+                },
+                
+                headers: {
+                    Authorization: localStorage.getItem('userToken'),
+                }
+            })
+            .then(res => {
+                dispatch({ type: UPDATE_QUIZUSER_RELATION_SUCCESS });
+            })
+            .catch(err => {
+                dispatch({ type: UPDATE_QUIZUSER_RELATION_FAILURE, payload: err });
+            });
+    }
 };
 
 export const fetchQuiz = (quizId) => dispatch => {
+    if(localStorage.getItem('userToken') === 'guest') {
     dispatch({ type: FETCH_QUIZ_START });
-    axios({
+        axios({
             method: 'get',
             url: `${baseUrl}api/quizzes/${quizId}`,
-            
-            headers: {
-                Authorization: localStorage.getItem('userToken'),
-            }
         })
         .then(res => {
             dispatch({ type: FETCH_QUIZ_SUCCESS, payload: res.data });
@@ -88,6 +87,23 @@ export const fetchQuiz = (quizId) => dispatch => {
         .catch(err => {
             dispatch({ type: FETCH_QUIZ_FAILURE, payload: err });
         });
+    } 
+    else {
+        axios({
+                method: 'get',
+                url: `${baseUrl}api/quizzes/${quizId}`,
+                
+                headers: {
+                    Authorization: localStorage.getItem('userToken'),
+                }
+            })
+            .then(res => {
+                dispatch({ type: FETCH_QUIZ_SUCCESS, payload: res.data });
+            })
+            .catch(err => {
+                dispatch({ type: FETCH_QUIZ_FAILURE, payload: err });
+            });
+    }
 };
 
 export const editQuestion = (quizId, questionId, question, ans1, ans2, ans3, ans4, correctAns) => dispatch => {

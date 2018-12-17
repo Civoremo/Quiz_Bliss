@@ -27,7 +27,9 @@ class ViewQuizCard extends React.Component {
             if(!this.props.fetchingQuestions) {
                 if(this.props.quizData.score === 0) {
                     this.setState({
-                        quizLetterGrade: 'Take Quiz for Score'
+                        quizLetterGrade: 'Take Quiz',
+                        userVote: this.props.quizData.user_vote,
+                        favorite: this.props.quizData.favorite,
                     });
                 }
                 else {
@@ -58,7 +60,13 @@ class ViewQuizCard extends React.Component {
                     });
                 }
             }
+            if(localStorage.getItem('userToken') === 'guest') {
+                this.setState({
+                    quizLetterGrade: 'Sign in to View'
+                });
+            }
         }
+        
         if(this.props.updateUserQuiz !== prevState.updateUserQuiz) {
             if(!this.props.fetchQuizBool && !this.props.updateUserQuiz) {
                 this.props.fetchQuiz(this.props.match.params.quizId);
@@ -169,53 +177,59 @@ class ViewQuizCard extends React.Component {
 
     upVoteQuiz = e => {
         e.preventDefault();
-        if(this.state.userVote === 0 || this.state.userVote === -1) {
-            this.setState({
-                userVote: 1,
-                upVoted: true,
-                downVoted: false,
-            }, () => {
-                this.updateUserQuizData();
-            });
-        } else if(this.state.userVote === 1) {
-            this.setState({
-                userVote: 0,
-                upVoted: false,
-                downVoted: false,
-            }, () => {
-                this.updateUserQuizData();
-            });
-        }
+        if(localStorage.getItem('userToken') !== 'guest') {
+            if(this.state.userVote === 0 || this.state.userVote === -1) {
+                this.setState({
+                    userVote: 1,
+                    upVoted: true,
+                    downVoted: false,
+                }, () => {
+                    this.updateUserQuizData();
+                });
+            } else if(this.state.userVote === 1) {
+                this.setState({
+                    userVote: 0,
+                    upVoted: false,
+                    downVoted: false,
+                }, () => {
+                    this.updateUserQuizData();
+                });
+            }
+        }        
     }
 
     downVoteQuiz = e => {
         e.preventDefault();
-        if(this.state.userVote !== -1) {
-            this.setState({
-                userVote: -1,
-                upVoted: false,
-                downVoted: true,
-            }, () => {
-                this.updateUserQuizData();
-            });
-        } else if (this.state.userVote === -1) {
-            this.setState({
-                userVote: 0,
-                upVoted: false,
-                downVoted: false,
-            }, () => {
-                this.updateUserQuizData();
-            });
+        if(localStorage.getItem('userToken') !== 'guest') {
+            if(this.state.userVote !== -1) {
+                this.setState({
+                    userVote: -1,
+                    upVoted: false,
+                    downVoted: true,
+                }, () => {
+                    this.updateUserQuizData();
+                });
+            } else if (this.state.userVote === -1) {
+                this.setState({
+                    userVote: 0,
+                    upVoted: false,
+                    downVoted: false,
+                }, () => {
+                    this.updateUserQuizData();
+                });
+            }
         }
     }
 
     toggleFavQuiz = e => {
         e.preventDefault();
-        this.setState({
-            favorite: !this.state.favorite,
-        }, () => {
-            this.updateUserQuizData();
-        });
+        if(localStorage.getItem('userToken') !== 'guest') {
+            this.setState({
+                favorite: !this.state.favorite,
+            }, () => {
+                this.updateUserQuizData();
+            });
+        }
     }
 
     updateUserQuizData = e => {
@@ -232,8 +246,8 @@ class ViewQuizCard extends React.Component {
             <div className='viewQuiz-container'>
                 <div>
                     <div className='quiz-info-container'>
-                        <div className='quiz-delete-btn'>
-                            <span className='entireQuiz-editQuizBtn' onClick={this.editQuizForm}>{this.state.displayEditForm ? 'cancel edit' :'edit quiz'}</span>
+                        <div className={localStorage.getItem('userToken') === 'guest' ? 'guestHideFeature' : 'quiz-delete-btn'}>
+                            <span className='entireQuiz-editQuizBtn' onClick={this.editQuizForm}>{this.state.displayEditForm ? 'cancel edit' : 'edit quiz'}</span>
                             <Link to={`/addQuestion/${this.props.match.params.quizId}`} className='entireQuiz-editQuestionsBtn'>edit questions</Link>
                             <span className='entireQuiz-deleteBtn' onClick={this.deleteModal}>delete quiz</span>
                             <div className={this.state.displayModal ? 'deleteModal' : 'hideModal'}>
@@ -272,7 +286,7 @@ class ViewQuizCard extends React.Component {
                                     <div className='gradeLetter-container'>
                                         <div className='gradeLetter-title'>Your Quiz Grade</div>
                                         <div className='gradeLetter-content'>
-                                            {this.state.quizLetterGrade}
+                                            {localStorage.getItem('userToken' === 'guest') ? 'Sign in to View Score' : `${this.state.quizLetterGrade}`}
                                         </div>
                                     </div>
                                 </div>
