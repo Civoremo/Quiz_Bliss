@@ -60,7 +60,7 @@ class EditQuiz extends React.Component {
             const id = this.props.quizId;
             const timing = (this.state.time * 60)
             this.props.editQuizInfo(id, this.state.title, this.state.topic, this.state.descrip, timing);
-            // window.location.reload();
+            window.location.reload();
         }
     }
 
