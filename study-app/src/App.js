@@ -52,8 +52,9 @@ class App extends Component {
             <div className='hamburger-container'>
               <span className='nav-items' onClick={() => this.toggleMenu()}>Menu</span>
               <div className={this.state.menu ? 'hamburger-dropdown-container' : 'menuActive'}>
-                {/* <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Home</Link> */}
-                <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quiz Collection</Link>
+                <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quizzes</Link>
+                <Link to='/favorites' className='menu-links' onClick={() => this.closeAllDropdowns()}>Favorites</Link>
+                <Link to='/forum' className='menu-links' onClick={() => this.closeAllDropdowns()}>Forum</Link>
               </div>
             </div>
 
@@ -76,10 +77,11 @@ class App extends Component {
 
         <div className='all-quiz-container'>
         <Route exact path='/' render={props => <QuizList {...props} />} />
-          {/* <QuizList /> */}
         <Route path='/create new quiz' render={props => <CreateNewQuiz {...props} />} />
         <Route path='/view/:quizId' render={props => <ViewQuizCard {...props} />} />
         <Route path='/addQuestion/:quizId' render={props => <AddQuestionToQuiz {...props} />} />
+        <Route path='/favorites' />
+        <Route path='forum' />
         </div>
       </div>
     );

@@ -9,7 +9,7 @@ class Topics extends React.Component {
 
     render() {
         return (
-            <div className='topic-text'>{this.props.topic}</div>
+            <option className='topic-text'>{this.props.topic}</option>
         );
     }
 

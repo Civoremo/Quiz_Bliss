@@ -1,0 +1,53 @@
+
+.popular-title {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.carouselQuizzes-container {
+    width: 950px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    /* border: 1px solid red; */
+    padding: 20px 30px;
+    display: flex;
+    overflow-x: auto;
+}
+
+.popQuiz-container {
+    border: 2px outset rgb(187, 187, 187);
+    background-color: rgb(46, 46, 46);
+    width: 270px;
+    min-width: 270px;
+    padding: 10px 20px;
+    margin-right: 50px;
+    color: #ffffff;
+    letter-spacing: 1.4px;
+}
+
+.popQuiz-infoText {
+    font-weight: bold;
+}
+
+.popQuiz-infoText-content {
+    margin: 10px 0;
+}
+
+.clipText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.popQuiz-learnMore-btn {
+    width: 100%;
+    height: 35px;
+    margin-top: 25px;
+    /* border-radius: 10px; */
+    background-color: #ffffff;
+}
+
+.popQuiz-learnMore-btn:hover {
+    background-color: rgb(221, 221, 221);
+    cursor: pointer;
+}

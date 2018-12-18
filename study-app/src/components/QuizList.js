@@ -5,15 +5,15 @@ import { fetchQuizzes } from '../actions';
 import '../styles/QuizCard.css';
 
 import QuizCard from './QuizCard';
-import Topics from './Topics';
-import Authors from './Authors';
 import CreateNewQuiz from './CreateNewQuiz';
+import CarouselQuizzes from './CarouselQuizzes';
 
 let topics = ['All'];
-let authorsList = [];
+let authorsList = ['All'];
 let filteredTopics = [];
 let filteredAuthor = [];
 let filteredQuizzes = [];
+let popQuizzes = [];
 
 class QuizList extends React.Component {
     constructor(props) {
@@ -31,9 +31,6 @@ class QuizList extends React.Component {
         if(this.props.addingQuiz !== prevState.addingQuiz || this.props.deleteQuiz !== prevState.deleteQuiz) {
             if(!this.props.addingQuiz && !this.props.deleteQuiz) {
                 this.props.fetchQuizzes();
-                this.setState({
-                    newToggle: false,
-                });
             }
         }
     }
@@ -42,22 +39,38 @@ class QuizList extends React.Component {
         this.props.fetchQuizzes();
     }
 
-    clickedTopic = text => {
-        if(text !== 'All') {
+    clickedTopic = e => {
+        e.preventDefault();
+        const tempValue = document.getElementById('topicSelection').value;
+        console.log(tempValue);
+
+        if(tempValue !== 'All') {
             this.setState({
-                topicSelected: text
-            }); 
+                topicSelected: tempValue,
+            });
         } else {
             this.setState({
-                topicSelected: ''
+                topicSelected: '',
             });
         }
+        
     }
 
-    clickedAuthor = text => {
-        this.setState({
-            topicSelected: text
-        });
+    clickedAuthor = e => {
+        e.preventDefault();
+        const tempValue = document.getElementById('authorSelection').value;
+        console.log(tempValue);
+
+        if(tempValue !== 'All') {
+            this.setState({
+                topicSelected: tempValue,
+            });
+        } else {
+            this.setState({
+                topicSelected: '',
+            });
+        }
+        
     }
 
     createNewToggle = () => {
@@ -85,7 +98,22 @@ class QuizList extends React.Component {
                 return quiz;
             }
             return null;
-        })
+        })     
+        
+        popQuizzes = this.sortByVotes(this.props.quizzes);
+    }
+
+    sortByVotes = (objectArr) => {
+        function compareObjects(a, b) {
+            if( a.votes > b.votes ) {
+                return -1;
+            }
+            if( a.votes < b.votes ) {
+                return 1;
+            }
+            return 0;
+        }
+        return objectArr.sort(compareObjects);
     }
     
 
@@ -104,28 +132,55 @@ class QuizList extends React.Component {
         return (
             <div>
                 {this.resetTopicsAuthors()}
-                <div className='topics-container'>
-                    <h3 className='list-title'>Authors</h3>
-                    <div className='topics-content-text'>
-                        {filteredAuthor.map((author, index) => {
-                            return (
-                                <span key={index} onClick={() => this.clickedAuthor(author)}><Authors author={author}/></span>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className='topics-container'>
-                    <h3 className='list-title'>Topics</h3>
-                    <div className='topics-content-text'>
-                        {filteredTopics.map((topic, index) => {
-                            return (
-                                <span key={index} onClick={() => this.clickedTopic(topic)}><Topics topic={topic}/></span>
-                            );
-                        })}
-                    </div>
+                <div>
+                    <CarouselQuizzes popularQuizzes={popQuizzes.slice(0, 10)} history={this.props.history}/>
                 </div>
                 <div className='quizzes-container-content'>
-                    <h3 className='list-title'>Quizzes</h3>
+                    <div className='sortingQuiz-container'>
+                        <h3 className='list-title'>Quizzes</h3>
+                        <div className='sort-content-container'>
+                            <div className='sort-container'>
+                                <span>
+                                    Sort by Topic
+                                </span>
+                                <form>
+                                    <select id='topicSelection'>
+                                        {filteredTopics.map((topic, index) => {
+                                            return (
+                                                <option 
+                                                    key={index} 
+                                                    value={`${topic}`} 
+                                                >
+                                                    {topic}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    <button onClick={this.clickedTopic}>Go</button>
+                                </form>
+                            </div>
+                            <div className='sort-container'>
+                                <span>
+                                    Sort by Author
+                                </span>
+                                <form>
+                                    <select id='authorSelection'>
+                                        {filteredAuthor.map((author, index) => {
+                                            return (
+                                                <option 
+                                                    key={index} 
+                                                    value={`${author}`}                                                     
+                                                >
+                                                    {author}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    <button onClick={this.clickedAuthor}>Go</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div className='quizzes-container'>
                         <div className={localStorage.getItem('userToken') === 'guest' ? 'guestHideFeature' : 'createNewToggle-btn-container'}>
                             <button onClick={() => this.createNewToggle()} className='createForm-btn'>{this.state.newToggle ? 'Cancel New Quiz' :'+ Create New Quiz'}</button>
