@@ -4,8 +4,10 @@
     flex-direction: column;
     align-items: center;
     /* border: 1px solid red; */
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
     padding: 40px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 
 .quiz-info-container {
@@ -207,7 +209,7 @@
 
 .gradeLetter-title {
     font-size: 1.2rem;
-    background-color: #222222;
+    background-color: rgb(46, 46, 46);
     padding: 10px 0;
     color: #ffffff;
 }
@@ -223,6 +225,7 @@
     height: 80px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    color: rgb(46, 46, 46);
 }
 
 .quizVote-container {
@@ -241,14 +244,14 @@
 .quizVote-content-toggle {
     margin: 5px 0;
     width: 30px;
-    background-color: blue;
+    background-color: rgb(23, 82, 211);
     color: #fff;
 }
 
 .quizVote-content-fav {
     margin: 5px 0;
     width: 30px;
-    background-color: rgb(194, 32, 32);
+    background-color: rgb(231, 66, 66);
 }
 
 .quizContainer {

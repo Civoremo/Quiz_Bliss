@@ -273,9 +273,9 @@ class ViewQuizCard extends React.Component {
                                 <div>
                                     <img src={this.props.quizData.author.img_url === null ? "https://bit.ly/2C9tLJe" : `${this.props.quizData.author.img_url}`} alt="profile" className='quiz-profile-image'/>
                                     <div className='quizVote-container'>
-                                        <button className={this.state.upVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.upVoteQuiz}>up</button>
-                                        <button className={this.state.downVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.downVoteQuiz}>down</button>
-                                        <button className={this.state.favorite ? 'quizVote-content-fav' : 'quizVote-content'} onClick={this.toggleFavQuiz}>fav</button>
+                                        <button className={this.state.upVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.upVoteQuiz}><i className="fas fa-thumbs-up"></i></button>
+                                        <button className={this.state.downVoted ? 'quizVote-content-toggle' : 'quizVote-content'} onClick={this.downVoteQuiz}><i className="fas fa-thumbs-down"></i></button>
+                                        <button className={this.state.favorite ? 'quizVote-content-fav' : 'quizVote-content'} onClick={this.toggleFavQuiz}><i className="fas fa-star"></i></button>
                                     </div>
                                 </div>
                                 <div>

@@ -50,7 +50,7 @@ class App extends Component {
           <nav className='nav-container'>
 
             <div className='hamburger-container'>
-              <span className='nav-items' onClick={() => this.toggleMenu()}>Menu</span>
+              <span className='nav-items' onClick={() => this.toggleMenu()}><i className="fas fa-bars"></i></span>
               <div className={this.state.menu ? 'hamburger-dropdown-container' : 'menuActive'}>
                 <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quizzes</Link>
                 <Link to='/favorites' className='menu-links' onClick={() => this.closeAllDropdowns()}>Favorites</Link>
@@ -72,7 +72,6 @@ class App extends Component {
             </div>
           </nav>
         </div>
-
         
 
         <div className='all-quiz-container'>

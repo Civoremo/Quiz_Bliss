@@ -22,12 +22,21 @@ class EditQuiz extends React.Component {
             .get(`${baseUrl}api/quizzes/${this.props.quizId}`)
             .then(res => {
                 console.log(res);
-                this.setState({
-                    title: res.data.title,
-                    topic: res.data.topic,
-                    descrip: res.data.description,
-                    time: (res.data.time_limit_seconds / 60),
-                });
+                if(res.data.description === null) {
+                    this.setState({
+                        title: res.data.title,
+                        topic: res.data.topic,
+                        descrip: 'none',
+                        time: (res.data.time_limit_seconds / 60),
+                    });
+                } else {
+                    this.setState({
+                        title: res.data.title,
+                        topic: res.data.topic,
+                        descrip: res.data.description,
+                        time: (res.data.time_limit_seconds / 60),
+                    });
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -51,7 +60,7 @@ class EditQuiz extends React.Component {
             const id = this.props.quizId;
             const timing = (this.state.time * 60)
             this.props.editQuizInfo(id, this.state.title, this.state.topic, this.state.descrip, timing);
-            window.location.reload();
+            // window.location.reload();
         }
     }
 

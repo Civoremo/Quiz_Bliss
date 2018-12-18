@@ -2,6 +2,19 @@
     display: none;
 }
 
+.quizBegin-btn {
+    background-color: #fff;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    letter-spacing: 1.7px;
+}
+
+.quizBegin-btn:hover {
+    background-color: rgb(41, 99, 223);
+    cursor: pointer;
+    color: #fff;
+}
+
 .missingAnswer {
     padding: 5px 10px;
     background-color: rgb(245, 238, 145);
@@ -31,6 +44,7 @@
     margin-bottom: 30px;
     width: 500px;
     text-align: center;
+    border-bottom: 1px solid lightgray;
 }
 
 .allAnswer-container {
@@ -77,20 +91,22 @@
     width: 200px;
     padding: 10px 10px;
     border-radius: 10px;
-    background-color: rgb(189, 224, 182);
+    background-color: rgb(38, 113, 212);
     border: 2px outset #ffffff;
     font-size: 1.1rem;
     margin-top: 20px;
+    color: #ffffff;
 }
 
 .saveAnswer-btn:hover {
-    background-color: rgb(116, 241, 100);
+    background-color: rgb(13, 67, 138);
     cursor: pointer;
 }
 
 .quiz-finished-container{
     width: 800px;
-    height: 420px;
+    min-height: 420px;
+    height: 450px;
     background-color: rgb(255, 255, 255);
     border: 2px inset lightgray;
     display: flex;
@@ -104,8 +120,8 @@
 .quizFinalScore-text {
     /* border: 2px outset rgb(121, 121, 121); */
     padding: 15px 35px;
-    border-radius: 10px;
-    background-color: rgb(69, 111, 204);
+    /* border-radius: 10px; */
+    background-color: rgb(46, 46, 46);
     font-weight: bold;
     letter-spacing: 2px;
     color: #ffffff;
@@ -115,9 +131,9 @@
 
 .quizFinalTryAgain-btn {
     border: 2px outset rgb(121, 121, 121);
-    padding: 15px 35px;
+    padding: 5px 15px;
     border-radius: 10px;
-    background-color: rgb(69, 204, 152);
+    background-color: rgb(69, 112, 204);
     font-weight: bold;
     letter-spacing: 2px;
     color: #ffffff;
@@ -127,4 +143,5 @@
 
 .quizFinalTryAgain-btn:hover {
     cursor: pointer;
+    background-color: rgb(17, 73, 126);
 }

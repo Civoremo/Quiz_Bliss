@@ -220,7 +220,7 @@ class QuestionsList extends React.Component {
                 </div>
                 <div className={this.state.quizStarted ? 'startQuiz' : 'quiz-start-container'}>
                     <div>
-                        <span className='quizStart-btn' onClick={this.startingQuiz}>START QUIZ</span>
+                        <span className='quizBegin-btn' onClick={this.startingQuiz}>START QUIZ</span>
                     </div>
                 </div>
                 <div className={this.state.quizFinished ? 'quiz-finished-container' : 'finished'}>
