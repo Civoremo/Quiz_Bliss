@@ -19,6 +19,7 @@ class ViewQuizCard extends React.Component {
             upVoted: null,
             downVoted: null,
             userScore: null,
+            expandDescription: false,
         }
     }
 
@@ -232,6 +233,13 @@ class ViewQuizCard extends React.Component {
         }
     }
 
+    toggleDescription = e => {
+        e.preventDefault();
+        this.setState({
+            expandDescription: !this.state.expandDescription
+        });
+    }
+
     updateUserQuizData = e => {
         // quizId, vote, favBool, score
         this.props.updateQuizUserRelation(this.props.match.params.quizId, this.state.userVote, this.state.favorite, this.props.quizData.score);
@@ -291,6 +299,14 @@ class ViewQuizCard extends React.Component {
                                     </div>
                                 </div>
                                 
+                            </div>
+                        </div>
+                        <div className='quizInfo-description-container' onClick={this.toggleDescription}>
+                            <div className='quizInfo-description-label'>
+                                Description:
+                            </div>
+                            <div className={this.state.expandDescription ? 'quizInfo-description-text ' : 'clipDescription'}>
+                                {this.props.quizData.description !== null ? `${this.props.quizData.description}` : 'None'}
                             </div>
                         </div>
                     </div>
