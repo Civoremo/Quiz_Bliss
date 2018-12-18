@@ -12,6 +12,8 @@ class EditQuiz extends React.Component {
         this.state = {
             title: '',
             topic: '',
+            descrip: '',
+            time: '',
         }
     }
 
@@ -23,6 +25,8 @@ class EditQuiz extends React.Component {
                 this.setState({
                     title: res.data.title,
                     topic: res.data.topic,
+                    descrip: res.data.description,
+                    time: (res.data.time_limit_seconds / 60),
                 });
             })
             .catch(err => {
@@ -45,7 +49,8 @@ class EditQuiz extends React.Component {
         else {
             console.log('sending information because fields are filled in');
             const id = this.props.quizId;
-            this.props.editQuizInfo(id, this.state.title, this.state.topic);
+            const timing = (this.state.time * 60)
+            this.props.editQuizInfo(id, this.state.title, this.state.topic, this.state.descrip, timing);
             window.location.reload();
         }
     }
@@ -63,8 +68,7 @@ class EditQuiz extends React.Component {
                     Edit Quiz Information
                 </div>
                 <form className='editQuizForm-container'>
-                    <div>
-                        {/* <div>Title</div> */}
+                    <div className='editQuiz-container-content'>
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -72,11 +76,8 @@ class EditQuiz extends React.Component {
                             value={this.state.title}
                             name='title'
                             required={true}
-                            className='newQuiz-inputField'
+                            className='editQuiz-inputField'
                         />
-                    </div>
-                    <div>
-                        {/* <div>Topic</div> */}
                         <input 
                             onChange={this.handleChange}
                             type="text"
@@ -84,14 +85,33 @@ class EditQuiz extends React.Component {
                             value={this.state.topic}
                             name='topic'
                             required={true}
-                            className='newQuiz-inputField'
+                            className='editQuiz-inputField'
+                        />
+                        <input 
+                            onChange={this.handleChange}
+                            type="number"
+                            placeholder='time (min/s)'
+                            value={this.state.time}
+                            name='time'
+                            className='editQuiz-time-inputField'
                         />
                     </div>
-                    <div className='editQuizForm-btn-container'>
-                        <button className='addNewQuiz-btn' onClick={this.saveQuizEdits}>Save Edit</button>
-                        <button className='addNewQuiz-btn' onClick={this.cancelEdit}>Cancel Edit</button>
+                    <div>
+                        <textarea 
+                            onChange={this.handleChange}
+                            type="textarea"
+                            placeholder='description'
+                            value={this.state.descrip}
+                            name='descrip'
+                            rows='5'
+                            className='editQuiz-description-inputField'
+                        />
                     </div>
                 </form>
+                <div className='editQuizForm-btn-container'>
+                    <button className='editQuizForm-btn' onClick={this.saveQuizEdits}>Save Edit</button>
+                    <button className='editQuizForm-btn' onClick={this.cancelEdit}>Cancel Edit</button>
+                </div>
             </div>
         );
     }

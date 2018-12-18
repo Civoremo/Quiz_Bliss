@@ -182,7 +182,7 @@ export const addQuestion = (id, question, ans1, ans2, ans3, ans4, correctAns) =>
 
 };
 
-export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
+export const editQuizInfo = (id, newTitle, newTopic, newDescrip, newTime) => dispatch => {
     dispatch({ type: EDIT_QUIZINFO_START });
     axios({
             method: 'patch',
@@ -190,6 +190,8 @@ export const editQuizInfo = (id, newTitle, newTopic) => dispatch => {
             data: {
                 title: newTitle,
                 topic: newTopic,
+                description: newDescrip,
+                time_limit_seconds: newTime,
             },
 
             headers: {
@@ -258,14 +260,16 @@ export const deleteQuiz = (quizId, token) => dispatch => {
         });
 };
 
-export const addNewQuiz = (quizTitle, quizTopic, token) => dispatch => {
+export const addNewQuiz = (quizTitle, quizTopic, descrip, time, token) => dispatch => {
     dispatch({ type: ADD_QUIZ_START });
     axios({
             method: 'post',
             url: `${baseUrl}api/quizzes`,
             data: {
                 title: quizTitle,
-                topic: quizTopic
+                topic: quizTopic,
+                description: descrip,
+                time_limit_seconds: time,
             },
             headers: {
                 Authorization: token

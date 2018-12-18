@@ -9,6 +9,8 @@ class CreateNewQuiz extends React.Component {
         this.state = {
             title: '',
             topic: '',
+            descrip: '',
+            time: '',
         }
     }
 
@@ -22,7 +24,8 @@ class CreateNewQuiz extends React.Component {
     addingNewQuiz = e => {
         e.preventDefault();
         const token = localStorage.getItem('userToken');
-        this.props.addNewQuiz(this.state.title, this.state.topic, token);
+        const timing = (this.state.time * 60);
+        this.props.addNewQuiz(this.state.title, this.state.topic, this.state.descrip, timing, token);
         this.props.history.push('/');
     }
 
@@ -30,24 +33,49 @@ class CreateNewQuiz extends React.Component {
         return (
             <div>
                 <form onSubmit={this.addingNewQuiz}  className='createForm-container'>
-                    <input 
-                        onChange={this.handleChange}
-                        type="text"
-                        placeholder='title'
-                        name='title'
-                        value={this.state.title}
-                        required={true}
-                        className='newQuiz-inputField'
-                    />
-                    <input 
-                        onChange={this.handleChange}
-                        type="text"
-                        placeholder='topic'
-                        name='topic'
-                        value={this.state.topic}
-                        required={true}
-                        className='newQuiz-inputField'
-                    />
+                    <div className='createNewQuizForm-container'>
+                        <div className='createNewQuizForm-input-container'>
+                            <input 
+                                onChange={this.handleChange}
+                                type="text"
+                                placeholder='title'
+                                name='title'
+                                value={this.state.title}
+                                required={true}
+                                className='newQuiz-inputField'
+                            />
+                            <input 
+                                onChange={this.handleChange}
+                                type="text"
+                                placeholder='topic'
+                                name='topic'
+                                value={this.state.topic}
+                                required={true}
+                                className='newQuiz-inputField'
+                            />
+                            <input 
+                                onChange={this.handleChange}
+                                type="number"
+                                placeholder='time (min/s)'
+                                name='time'
+                                value={this.state.time}
+                                min='1'
+                                max='20'
+                                className='newQuiz-time-inputField'
+                            />
+                        </div>
+                        <div>
+                            <textarea 
+                                onChange={this.handleChange}
+                                type="textarea"
+                                placeholder='description'
+                                name='descrip'
+                                value={this.state.descrip}
+                                rows='5'
+                                className='newQuiz-description-inputField'
+                            />
+                        </div>
+                    </div>
                     <button onClick={this.addingNewQuiz} className='addNewQuiz-btn'>Add Quiz</button>
                 </form>
             </div>

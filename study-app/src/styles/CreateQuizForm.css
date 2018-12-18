@@ -2,32 +2,86 @@
 .createForm-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
+    border: 2px inset rgb(221, 221, 221);
+    background-color: rgb(128, 128, 128);
+    padding: 10px 0;
 }
 
 .newQuiz-inputField {
-    width: 250px;
+    width: 200px;
     padding: 5px 10px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 .addNewQuiz-btn {
     width: 150px;
+    height: 45px;
     padding: 5px 10px;
-    background-color: rgb(208, 234, 247);
+    background-color: rgb(221, 221, 221);
     border-radius: 5px;
     margin-bottom: 5px;
+    font-size: 1.1rem;
 }
 
 .addNewQuiz-btn:hover {
-    background-color: rgb(165, 196, 211);
+    background-color: rgb(182, 182, 182);
     cursor: pointer;
 }
 
 .editQuizForm-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    width: 600px;
+}
+
+.editQuiz-container-content {
+    display: flex;
+}
+
+.editQuiz-description-inputField {
+    width: 500px;
+    margin-top: 10px;
+    resize: none;
+    padding: 10px 20px;
+}
+
+.editQuiz-inputField {
+    width: 200px;
+    padding: 5px 10px;
+}
+
+.editQuiz-time-inputField {
+    width: 100px;
+    padding: 5px 5px;
+}
+
+.createNewQuizForm-input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.createNewQuizForm-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newQuiz-time-inputField {
+    width: 100px;
+    padding: 5px 5px;
+}
+
+.newQuiz-description-inputField {
+    margin-top: 10px;
+    width: 500px;
+    padding: 5px 20px;
+    word-wrap: break-word;
+    resize: none;
 }
 
 .editingQuiz-container {
@@ -42,7 +96,7 @@
     position: absolute;
     top: 150px;
     width: 800px;
-    height: 260px;
+    height: 300px;
 }
 
 .editForm-title-text {
@@ -54,5 +108,17 @@
 
 .editQuizForm-btn-container {
     display: flex;
-    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.editQuizForm-btn {
+    width: 100px;
+    margin: 0 10px;
+    padding: 10px 0;
+}
+
+.editQuizForm-btn:hover {
+    background-color: rgb(202, 201, 201);
+    cursor: pointer;
 }
