@@ -245,7 +245,6 @@ class ViewQuizCard extends React.Component {
         this.props.updateQuizUserRelation(this.props.match.params.quizId, this.state.userVote, this.state.favorite, this.props.quizData.score);
     }
 
-
     render () {
         if(this.props.quizData.length === 0) {
             return <></>

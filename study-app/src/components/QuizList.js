@@ -6,7 +6,7 @@ import '../styles/QuizCard.css';
 
 import QuizCard from './QuizCard';
 import CreateNewQuiz from './CreateNewQuiz';
-import CarouselQuizzes from './CarouselQuizzes';
+// import CarouselQuizzes from './CarouselQuizzes';
 
 let topics = ['All'];
 let authorsList = ['All'];
@@ -23,6 +23,7 @@ class QuizList extends React.Component {
             title: '',
             topic: '',
             newToggle: false,
+            sortedQuizzes: [],
         }
 
     }
@@ -37,6 +38,8 @@ class QuizList extends React.Component {
 
     componentDidMount() {
         this.props.fetchQuizzes();
+        // popQuizzes = this.sortByVotes(this.props.quizzes);
+        
     }
 
     clickedTopic = e => {
@@ -53,7 +56,6 @@ class QuizList extends React.Component {
                 topicSelected: '',
             });
         }
-        
     }
 
     clickedAuthor = e => {
@@ -70,7 +72,6 @@ class QuizList extends React.Component {
                 topicSelected: '',
             });
         }
-        
     }
 
     createNewToggle = () => {
@@ -79,7 +80,7 @@ class QuizList extends React.Component {
         });
     }
 
-    resetTopicsAuthors = () => {
+    filteredItems = () => {
         this.props.quizzes.forEach(quiz => {
             topics.push(quiz.topic);
         })
@@ -100,10 +101,11 @@ class QuizList extends React.Component {
             return null;
         })     
         
-        popQuizzes = this.sortByVotes(this.props.quizzes);
+        // popQuizzes = this.sortByVotes(this.state.sortedQuizzes);
     }
 
     sortByVotes = (objectArr) => {
+        console.log('filtering');
         function compareObjects(a, b) {
             if( a.votes > b.votes ) {
                 return -1;
@@ -128,13 +130,20 @@ class QuizList extends React.Component {
         if(this.props.deleteQuiz) {
             return <h3>Deleting Data ...</h3>
         }
-
+        if(this.state.sortedQuizzes.length === 0) {
+            this.setState({
+                sortedQuizzes: this.props.quizzes
+            });
+        }
+        
+        console.log(popQuizzes);
+        console.log(filteredQuizzes);
         return (
             <div>
-                {this.resetTopicsAuthors()}
-                <div>
-                    <CarouselQuizzes popularQuizzes={popQuizzes.slice(0, 10)} history={this.props.history}/>
-                </div>
+                {this.filteredItems()}
+                {/* <div>
+                    <CarouselQuizzes popularQuizzes={this.sortByVotes(this.props.quizzes).slice(0, 10)} history={this.props.history}/>
+                </div> */}
                 <div className='quizzes-container-content'>
                     <div className='sortingQuiz-container'>
                         <h3 className='list-title'>Quizzes</h3>

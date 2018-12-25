@@ -52,6 +52,8 @@ class Login extends React.Component {
             localStorage.setItem('username', res.data.user.username);
             if(res.data.user.img_url !== null) {
                 localStorage.setItem('userImg', res.data.user.img_url);
+            } else {
+                localStorage.setItem('userImg', "https://bit.ly/2C9tLJe");
             }
             this.props.login();
         })

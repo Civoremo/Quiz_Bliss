@@ -66,6 +66,8 @@ a {
 
 .hamburger-container {
   position: relative;
+  /* border: 1px solid red; */
+  width: 150px;
 }
 
 .hamburger-dropdown-container {
@@ -93,6 +95,7 @@ a {
 
 .profile-container {
   position: relative;
+  /* border: 1px solid red; */
 }
 
 .profile-dropdown-container {
