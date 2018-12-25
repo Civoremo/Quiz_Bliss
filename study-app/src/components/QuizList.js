@@ -100,7 +100,7 @@ class QuizList extends React.Component {
             }
             return null;
         })     
-        
+        // console.log('filtering');
         // popQuizzes = this.sortByVotes(this.state.sortedQuizzes);
     }
 
@@ -130,17 +130,18 @@ class QuizList extends React.Component {
         if(this.props.deleteQuiz) {
             return <h3>Deleting Data ...</h3>
         }
-        if(this.state.sortedQuizzes.length === 0) {
-            this.setState({
-                sortedQuizzes: this.props.quizzes
-            });
-        }
+        // if(this.state.sortedQuizzes.length === 0) {
+        //     this.setState({
+        //         sortedQuizzes: this.props.quizzes
+        //     });
+        // }
+        this.filteredItems();
         
         console.log(popQuizzes);
         console.log(filteredQuizzes);
         return (
             <div>
-                {this.filteredItems()}
+                {/* {this.filteredItems()} */}
                 {/* <div>
                     <CarouselQuizzes popularQuizzes={this.sortByVotes(this.props.quizzes).slice(0, 10)} history={this.props.history}/>
                 </div> */}

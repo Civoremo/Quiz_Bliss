@@ -1,0 +1,36 @@
+.tournament-container {
+    width: 800px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.tournament-topic-container {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    border: 1px solid red;
+}
+
+.topic-questions-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tournament-score-container {
+    width: 200px;
+    border: 1px solid green;
+}
+
+.question-modal {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    background-color: rgb(98, 139, 228);
+    top: 300px;
+}
+
+.hideModal {
+    display: none;
+}

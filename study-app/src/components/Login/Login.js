@@ -109,7 +109,7 @@ class Login extends React.Component {
 
                 <div className={this.state.create ? 'hide' : ''}>
                     <div className='auth-app-title'>
-                        <h2 className='auth-app-title-content'>Study App</h2>
+                        <h2 className='auth-app-title-content'>Quiz Bliss</h2>
                     </div>
                     <div className='create-body-content'>
                         <h2 className='authentication-title'>Login</h2>
@@ -121,7 +121,7 @@ class Login extends React.Component {
                 
                 <div className={this.state.create ? '' : 'hide'}>
                     <div className='auth-app-title'>
-                        <h2 className='auth-app-title-content'>Study App</h2>
+                        <h2 className='auth-app-title-content'>Quiz Bliss</h2>
                     </div>
                     <div className='create-body-content'>
                         <h2 className='authentication-title'>Create New Account</h2>

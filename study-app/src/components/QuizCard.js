@@ -12,7 +12,7 @@ const QuizCard = props => {
             </div>
             <div className='quizCard-marker-content'>
                 <div>
-                    <div>leadersboard top 3</div> 
+                    <div>leaderboard top 3</div> 
                     <div>something goes here</div>
                 </div>
             </div>

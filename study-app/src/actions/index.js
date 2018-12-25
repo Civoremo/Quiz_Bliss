@@ -44,9 +44,28 @@ export const UPDATE_QUIZUSER_RELATION_START = 'UPDATE_QUIZUSER_RELATION_START';
 export const UPDATE_QUIZUSER_RELATION_SUCCESS = 'UPDATE_QUIZUSER_RELATION_SUCCESS';
 export const UPDATE_QUIZUSER_RELATION_FAILURE = 'UPDATE_QUIZUSER_RELATION_FAILURE';
 
+export const FETCH_QUESTION_START = 'FETCH_QUESTION_START';
+export const FETCH_QUESTION_SUCCESS = 'FETCH_QUESTION_SUCCESS';
+export const FETCH_QUESTION_FAILURE = 'FETCH_QUESTION_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
 
+
+export const fetchOneQuestion = (quizId, questionId) => dispatch => {
+    dispatch({ type: FETCH_QUESTION_START });
+    axios({
+        method: 'get',
+        url: `${baseUrl}api/quizzes/${quizId}/questions/${questionId}`,
+    })
+    .then(res => {
+        console.log(res.data);
+        // dispatch({ type: FETCH_QUESTION_SUCCESS, payload: res});
+    })
+    .catch(err => {
+        dispatch({ type: FETCH_QUESTION_FAILURE, payload: err});
+    });
+};
 
 export const updateQuizUserRelation = (quizId, vote, favBool, score) => dispatch => {
     if(localStorage.getItem('userToken') !== 'guest') {

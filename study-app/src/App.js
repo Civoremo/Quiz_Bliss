@@ -9,6 +9,7 @@ import CreateNewQuiz from './components/CreateNewQuiz';
 import ViewQuizCard from './components/ViewQuizCard';
 import AddQuestionToQuiz from './components/AddQuestionToQuiz';
 import ProfilePage from './components/ProfilePage';
+import Tournament from './components/Tournament';
 
 class App extends Component {
   constructor() {
@@ -54,12 +55,13 @@ class App extends Component {
               <span className='nav-items' onClick={() => this.toggleMenu()}><i className="fas fa-bars"></i></span>
               <div className={this.state.menu ? 'hamburger-dropdown-container' : 'menuActive'}>
                 <Link to='/' className='menu-links' onClick={() => this.closeAllDropdowns()}>Quizzes</Link>
+                <Link to='/tournament'  className='menu-links' onClick={() => this.closeAllDropdowns()}>Tournament</Link>
                 {/* <Link to='/favorites' className='menu-links' onClick={() => this.closeAllDropdowns()}>Favorites</Link> */}
                 {/* <Link to='/forum' className='menu-links' onClick={() => this.closeAllDropdowns()}>Forum</Link> */}
               </div>
             </div>
 
-            <NavLink exact to='/' onClick={() => this.closeAllDropdowns()}><div className='nav-logo'>STUDY APP</div></NavLink>
+            <NavLink exact to='/' onClick={() => this.closeAllDropdowns()}><div className='nav-logo'>QUIZ BLISS</div></NavLink>
             
             <div className='profile-container'>
               <div className='nav-profile-container'>
@@ -81,6 +83,7 @@ class App extends Component {
         <Route path='/view/:quizId' render={props => <ViewQuizCard {...props} />} />
         <Route path='/addQuestion/:quizId' render={props => <AddQuestionToQuiz {...props} />} />
         <Route path='/profile' render={props => <ProfilePage {...props} />} />
+        <Route path='/tournament' render={props => <Tournament {...props} />} />
         {/* <Route path='/favorites' /> */}
         {/* <Route path='forum' /> */}
         </div>

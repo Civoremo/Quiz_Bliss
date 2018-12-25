@@ -1,0 +1,20 @@
+.tourQuiz-topic-container {
+    background-color: #fff;
+    width: 90px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+}
+
+.questionPlaceholder {
+    border: 1px solid red;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.questionPlaceholder:hover {
+    cursor: pointer;
+    background-color: #fff;
+}
