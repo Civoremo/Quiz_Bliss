@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import '../styles/ProfilePage.css';
 
@@ -48,6 +49,64 @@ class ProfilePage extends React.Component {
         }
     }
 
+    changeProfileImage = e => {
+        e.preventDefault();
+        if(this.state.image !== "") {
+            console.log('requesting to update profile image');
+            axios({
+                method: 'patch',
+                url: 'https://lambda-study-app.herokuapp.com/api/auth/update',
+                data: {
+                    img_url: this.state.image,
+                    password: 'PassWord1',
+                },
+
+                // headers : {
+                //     Authorization: localStorage.getItem('userToken'),
+                // }
+            })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
+    changePassword = e => {
+        e.preventDefault();
+        if(this.state.newPass1 === this.state.newPass2) {
+            axios({
+                method: 'patch',
+                url: 'https://lambda-study-app.herokuapp.com/api/auth/update',
+                data: {
+                    currentPassword: this.state.oldPass,
+                    newPassword: this.state.newPass1,
+                },
+
+                headers: {
+                    Authorization: localStorage.getItem('userToken'),
+                }
+            })
+            .then(res => {
+                localStorage.setItem('userToken', res.data.token);
+                this.setState({
+                    showImageForm: false,
+                    showPasswordForm: false,
+                    oldPass: '',
+                    newPass1: '',
+                    newPass2: '',
+                });
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
 
     render() {
         return (
@@ -65,7 +124,7 @@ class ProfilePage extends React.Component {
                                 name='image'
                                 value={this.state.image}
                             />
-                            <button>save image</button>
+                            <button onClick={this.changeProfileImage}>save image</button>
                         </form>
                     </div>
                 </div>
@@ -76,13 +135,12 @@ class ProfilePage extends React.Component {
                     <div className='profilPage-formlink' onClick={this.togglePasswordForm}>{this.state.showPasswordForm ? 'cancel password change' : 'change password'}</div>
                     <input 
                         type="password"
-                        disabled='true'
+                        disabled={true}
                         placeholder='password'
                         className='profilePage-inputField'
                     />
                     <div className={this.state.showPasswordForm ? 'passForm-show' : 'passForm-hide'}>
                         <form className='profilePage-changePass-container'>
-                            {/* <h4 className='profilePage-title-Text'>Update Password</h4> */}
                             <input 
                                 onChange={this.handleChange}
                                 type="password"
@@ -107,7 +165,7 @@ class ProfilePage extends React.Component {
                                 value={this.state.newPass2}
                                 className='profilePage-inputField-newPassword'
                             />
-                            <button>save password</button>
+                            <button onClick={this.changePassword}>save password</button>
                         </form>
                     </div>
                 </div>
