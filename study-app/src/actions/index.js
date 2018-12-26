@@ -59,8 +59,8 @@ export const fetchOneQuestion = (quizId, questionId) => dispatch => {
         url: `${baseUrl}api/quizzes/${quizId}/questions/${questionId}`,
     })
     .then(res => {
-        console.log(res.data);
-        // dispatch({ type: FETCH_QUESTION_SUCCESS, payload: res});
+        // console.log(res.data);
+        dispatch({ type: FETCH_QUESTION_SUCCESS, payload: res.data});
     })
     .catch(err => {
         dispatch({ type: FETCH_QUESTION_FAILURE, payload: err});

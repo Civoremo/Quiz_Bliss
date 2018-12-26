@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchQuizzes, fetchOneQuestion } from '../actions';
+import { fetchQuizzes, fetchQuestions } from '../actions';
 
 import '../styles/Tournament.css';
 import TournamentQuizQuestions from './TournamentQuizQuestions';
@@ -10,7 +10,7 @@ class Tournament extends React.Component {
         super();
         this.state = {
             showModal: false,
-            selectedQuestion: {},
+            questionIndex: null,
         }
     }
 
@@ -18,20 +18,16 @@ class Tournament extends React.Component {
         this.props.fetchQuizzes();
     }
 
-    toggleQuestionModal = (quizId, questionId, question) => {
-        console.log('QUIZID: --' + quizId);
-        console.log('QUIZQUESTION: --' + questionId);
+    toggleQuestionModal = (selectedQuizId, selectedQuestionIndex) => {
+        this.props.fetchQuestions(selectedQuizId);
         this.setState({
+            questionIndex: selectedQuestionIndex,
             showModal: !this.state.showModal,
-            selectedQuestion: question,
         });
     }
 
     render() {
-        // if(this.state.selectedQuestion === undefined) {
-        //     return <></>
-        // }
-        // console.log('selected question   ' + this.state.selectedQuestion);
+        console.log(this.props.allQuestions)
         return (
             <div className='tournament-container'>
                 <div className='tournament-topic-container'>
@@ -48,14 +44,14 @@ class Tournament extends React.Component {
                     })}
                     <div className={this.state.showModal ? 'question-modal' : 'hideModal'}>
                         <div>
-                            {this.state.selectedQuestion.question}
+                            {this.state.questionIndex === null ? "" : this.props.allQuestions[this.state.questionIndex].question}
                         </div>
                         <dir>
-                            {/* {this.state.selectedQuestion.options.map((answer, index) => {
+                            {this.state.questionIndex === null ? '' : this.props.allQuestions[this.state.questionIndex].options.map((answer, index) => {
                                 return (
                                     <button key={index}>{answer}</button>
                                 );
-                            })} */}
+                            })}
                         </dir>
                     </div>
                 </div>
@@ -72,12 +68,12 @@ class Tournament extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        allQuizzes: state.quizzes,
-        // allQuestions: state.questions,
+        allQuizzes: state.quizzes,  // array
+        allQuestions: state.questions, // array
     }
 }
 
 export default connect(
     mapStateToProps,
-    { fetchQuizzes, fetchOneQuestion }
+    { fetchQuizzes, fetchQuestions }
 )(Tournament);

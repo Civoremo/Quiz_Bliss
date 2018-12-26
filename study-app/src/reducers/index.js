@@ -32,6 +32,9 @@ import {
     UPDATE_QUIZUSER_RELATION_START,
     UPDATE_QUIZUSER_RELATION_SUCCESS,
     UPDATE_QUIZUSER_RELATION_FAILURE,
+    FETCH_QUESTION_START,
+    FETCH_QUESTION_SUCCESS,
+    FETCH_QUESTION_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -39,6 +42,8 @@ const initialState = {
     topics: [],
     questions: [],
     currentQuiz: [],
+    oneQuestion: [],
+    fetchQuestion: false,
     fetching: false,
     fetchingQuestions: false,
     fetchTopics: false,
@@ -55,7 +60,27 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        // Update User/Quiz Relationship
+        // Fetch Question Cases
+        case FETCH_QUESTION_START:
+            return {
+                ...state,
+                fetchQuestion: true,
+            };
+        case FETCH_QUESTION_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                fetchQuestion: false,
+                oneQuestion: action.payload,
+            };
+        case FETCH_QUESTION_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                fetchQuestion: false,
+            };
+
+        // Update User/Quiz Relationship Cases
         case UPDATE_QUIZUSER_RELATION_START:
             return {
                 ...state,
