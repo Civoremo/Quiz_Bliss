@@ -1,6 +1,6 @@
 .tournament-container {
     width: 800px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     display: flex;
     justify-content: center;
     margin: 0 auto;
@@ -10,7 +10,15 @@
     display: flex;
     justify-content: space-between;
     width: 600px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    border-left: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .topic-questions-container {
@@ -20,17 +28,58 @@
 
 .tournament-score-container {
     width: 200px;
-    border: 1px solid green;
+    /* border: 1px solid green; */
+}
+
+.tourModal-question-container {
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    border-bottom: 2px solid rgb(46, 46, 46);
+    padding-bottom: 10px;
+    border-radius: 5px;
+    margin-bottom: 40px;
 }
 
 .question-modal {
     position: absolute;
-    width: 400px;
-    height: 300px;
-    background-color: rgb(98, 139, 228);
-    top: 300px;
+    width: 540px;
+    height: 360px;
+    background-color: rgb(217, 224, 238);
+    border-radius: 10px;
+    padding: 50px 40px;
+    border: 3px outset lightgray;
+    /* top: 300px; */
 }
 
 .hideModal {
     display: none;
+}
+
+.tourModal-answers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid red;
+    /* width: 400px; */
+}
+
+.tourModal-saveBtn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.tourModal-saveBtn {
+    width: 150px;
+    padding: 5px 5px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: rgb(46, 46, 46);
+    color: #ffffff;
+}
+
+.tourModal-saveBtn:hover {
+    width: 155px;
+    background-color: rgb(87, 87, 87);
+    cursor: pointer;
 }

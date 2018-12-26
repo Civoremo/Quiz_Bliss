@@ -21,7 +21,7 @@ class TournamentQuizQuestions extends React.Component {
                 <div className='tourQuiz-topic-container'>
                     {this.props.quizTitle}
                 </div>
-                <div>
+                <div className='questionPlaceholder-container'>
                     {this.props.allQuestions.map((question, index) => {
                         return (
                             <div key={index} className='questionPlaceholder' onClick={() => this.props.toggleModal(this.props.quizId, index)}>

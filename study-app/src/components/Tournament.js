@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchQuizzes, fetchQuestions } from '../actions';
+import axios from 'axios';
 
 import '../styles/Tournament.css';
 import TournamentQuizQuestions from './TournamentQuizQuestions';
@@ -11,6 +12,10 @@ class Tournament extends React.Component {
         this.state = {
             showModal: false,
             questionIndex: null,
+            pickedQuizId: null,
+            pickedQuestionId: null,
+            questionValue: null,
+            score: 0,
         }
     }
 
@@ -23,11 +28,49 @@ class Tournament extends React.Component {
         this.setState({
             questionIndex: selectedQuestionIndex,
             showModal: !this.state.showModal,
+            pickedQuizId: selectedQuizId,
+            questionValue: ((selectedQuestionIndex + 1) * 200),
+        });
+    }
+
+    submitAnswer = (pickedAns) => {
+        axios({
+            method: 'get',
+            url: `https://lambda-study-app.herokuapp.com/api/quizzes/${this.state.pickedQuizId}/questions/${this.props.allQuestions[this.state.questionIndex].id}/response`,
+
+            params: {
+                option: pickedAns +1,
+            }
+        })
+        .then(res => {
+            console.log(res.data.correct);
+            if(res.data.correct === true) {
+                this.setState({
+                    score: this.state.score +this.state.questionValue,
+                    showModal: false,
+                    questionIndex: null,
+                    pickedQuizId: null,
+                    pickedQuestionId: null,
+                    questionValue: null,
+                });
+            } else {
+                this.setState({
+                    score: this.state.score -this.state.questionValue,
+                    showModal: false,
+                    questionIndex: null,
+                    pickedQuizId: null,
+                    pickedQuestionId: null,
+                    questionValue: null,
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
     render() {
-        console.log(this.props.allQuestions)
+        // console.log(this.props.allQuestions)
         return (
             <div className='tournament-container'>
                 <div className='tournament-topic-container'>
@@ -43,22 +86,25 @@ class Tournament extends React.Component {
                         }
                     })}
                     <div className={this.state.showModal ? 'question-modal' : 'hideModal'}>
-                        <div>
+                        <div className='tourModal-question-container'>
                             {this.state.questionIndex === null ? "" : this.props.allQuestions[this.state.questionIndex].question}
                         </div>
-                        <dir>
+                        <dir className='tourModal-answers-container'>
                             {this.state.questionIndex === null ? '' : this.props.allQuestions[this.state.questionIndex].options.map((answer, index) => {
                                 return (
-                                    <button key={index}>{answer}</button>
+                                    <button key={index} onClick={() => this.submitAnswer(index)}>{answer}</button>
                                 );
                             })}
                         </dir>
+                        <div className='tourModal-saveBtn-container'>
+                            <button className='tourModal-saveBtn'>Confirm</button>
+                        </div>
                     </div>
                 </div>
             
                 <div className='tournament-score-container'>
                     <div>
-                        Score: 200
+                        Score: {this.state.score}
                     </div>
                 </div>
             </div>
