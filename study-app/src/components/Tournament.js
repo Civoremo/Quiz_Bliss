@@ -16,6 +16,7 @@ class Tournament extends React.Component {
             pickedQuestionId: null,
             questionValue: null,
             score: 0,
+            completedQuestions: [{quizID: -1, questionIndex: -1, correct: true}], //quizID: int, questionIndex: int, correct: bool
         }
     }
 
@@ -34,6 +35,11 @@ class Tournament extends React.Component {
     }
 
     submitAnswer = (pickedAns) => {
+        // console.log(this.state.pickedQuizId + "  " + this.props.allQuestions[this.state.questionIndex].id + "  " + pickedAns)
+        // this.props.checkAnswer(this.state.pickedQuizId, this.props.allQuestions[this.state.questionIndex].id, pickedAns);
+        // this.setState({
+        //     showModal: false,
+        // });
         axios({
             method: 'get',
             url: `https://lambda-study-app.herokuapp.com/api/quizzes/${this.state.pickedQuizId}/questions/${this.props.allQuestions[this.state.questionIndex].id}/response`,
@@ -43,9 +49,11 @@ class Tournament extends React.Component {
             }
         })
         .then(res => {
-            console.log(res.data.correct);
+            // console.log(res.data.correct);
             if(res.data.correct === true) {
+                // this.props.fetchQuestions(this.state.pickedQuizId);
                 this.setState({
+                    completedQuestions: [...this.state.completedQuestions, {quizID: this.state.pickedQuizId, questionIndex: this.state.questionIndex, correct: res.data.correct}],
                     score: this.state.score +this.state.questionValue,
                     showModal: false,
                     questionIndex: null,
@@ -55,6 +63,7 @@ class Tournament extends React.Component {
                 });
             } else {
                 this.setState({
+                    completedQuestions: [...this.state.completedQuestions, {quizID: this.state.pickedQuizId, questionIndex: this.state.questionIndex, correct: res.data.correct}],
                     score: this.state.score -this.state.questionValue,
                     showModal: false,
                     questionIndex: null,
@@ -78,7 +87,7 @@ class Tournament extends React.Component {
                         if(quiz.author === 'nedim' && quiz.topic === 'Challenge One') {
                             return (
                                 <div key={quiz.id}>
-                                    <TournamentQuizQuestions quizId={quiz.id} quizTitle={quiz.title} toggleModal={this.toggleQuestionModal}/>
+                                    <TournamentQuizQuestions quizId={quiz.id} quizTitle={quiz.title} toggleModal={this.toggleQuestionModal} completedQuestions={this.state.completedQuestions}/>
                                 </div>
                             );
                         } else {

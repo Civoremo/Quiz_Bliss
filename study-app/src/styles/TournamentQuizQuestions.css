@@ -34,6 +34,36 @@
     background-color: rgb(248, 247, 184);
 }
 
+.questionPlaceholder-answeredTrue {
+    width: 60px;
+    height: 40px;
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 10px;
+    margin: 10px 0;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: rgb(25, 145, 31);
+}
+
+.questionPlaceholder-answeredFalse {
+    width: 60px;
+    height: 40px;
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 10px;
+    margin: 10px 0;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: rgb(179, 29, 24);
+}
+
 .questionPlaceholder:hover {
     font-size: 1.6rem;
     cursor: pointer;

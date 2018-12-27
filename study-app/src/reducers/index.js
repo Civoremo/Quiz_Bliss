@@ -35,6 +35,9 @@ import {
     FETCH_QUESTION_START,
     FETCH_QUESTION_SUCCESS,
     FETCH_QUESTION_FAILURE,
+    CHECK_ANSWER_START,
+    CHECK_ANSWER_SUCCESS,
+    CHECK_ANSWER_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -43,6 +46,8 @@ const initialState = {
     questions: [],
     currentQuiz: [],
     oneQuestion: [],
+    checkedAnswers: [],
+    checkingAnswer: false,
     fetchQuestion: false,
     fetching: false,
     fetchingQuestions: false,
@@ -60,6 +65,26 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Check Answer Cases
+        case CHECK_ANSWER_START:
+            return {
+                ...state,
+                checkingAnswer: true,
+            };
+        case CHECK_ANSWER_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                checkingAnswer: false,
+                checkedAnswers: [...state.checkedAnswers, action.payload],
+            };
+        case CHECK_ANSWER_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                checkingAnswer: false,
+            };
+
         // Fetch Question Cases
         case FETCH_QUESTION_START:
             return {

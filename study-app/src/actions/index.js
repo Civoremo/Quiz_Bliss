@@ -48,8 +48,31 @@ export const FETCH_QUESTION_START = 'FETCH_QUESTION_START';
 export const FETCH_QUESTION_SUCCESS = 'FETCH_QUESTION_SUCCESS';
 export const FETCH_QUESTION_FAILURE = 'FETCH_QUESTION_FAILURE';
 
+export const CHECK_ANSWER_START = 'CHECK_ANSWER_START';
+export const CHECK_ANSWER_SUCCESS = 'CHECK_ANSWER_SUCCESS';
+export const CHECK_ANSWER_FAILURE = 'CHECK_ANSWER_FAILURE';
+
 
 const baseUrl = 'https://lambda-study-app.herokuapp.com/';
+
+export const checkAnswer = (quizId, questionId, pickedOption) => dispatch => {
+    dispatch({ type: CHECK_ANSWER_START });
+    axios({
+        method: 'get',
+        url: `${baseUrl}api/quizzes/${quizId}/questions/${questionId}/response`,
+
+        params: {
+            option: pickedOption +1,
+        }
+
+    })
+    .then(res => {
+        dispatch({ type: CHECK_ANSWER_SUCCESS, payload: [res.data, pickedOption] });
+    })
+    .catch(err => {
+        dispatch({ type: CHECK_ANSWER_FAILURE, payload: err});
+    });
+};
 
 
 export const fetchOneQuestion = (quizId, questionId) => dispatch => {
