@@ -35,6 +35,7 @@ class TournamentQuizQuestions extends React.Component {
                 </div>
                 <div className='questionPlaceholder-container'>
                     {this.props.allQuestions.map((question, index) => {
+                        console.log(filtered.quizID + "   " + filtered.questionIndex + "  " + filtered.correct)
                         if(filtered.quizID === this.props.quizId && filtered.questionIndex === index && filtered.correct === true) {
                             console.log('found true')
                             return (
